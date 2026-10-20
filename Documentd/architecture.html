@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#060606" />
+    <title>Arquitectura · Documentd MEGA TECHNOLOGY</title>
+    <link rel="stylesheet" href="./assets/docs.css" />
+    <script src="./assets/docs.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Saltar al contenido</a>
+    <div data-docs-nav></div>
+
+    <main id="main" class="docs-main">
+      <div class="docs-topbar">
+        <p class="docs-crumb">Documentd / <strong>Arquitectura</strong></p>
+        <div class="docs-actions"><span class="docs-pill docs-pill--live">Local-first</span><a class="docs-pill" href="./diagram.html">Ver diagrama ↗</a></div>
+      </div>
+
+      <p class="docs-eyebrow">Cómo está construido</p>
+      <h1>Un store,<br />dos transportes</h1>
+      <p class="lead">
+        La app es un prototipo estático con módulos ES. El estado vive en un único store
+        observable, persistido en <code>localStorage</code>. Las pantallas nunca llaman a
+        <code>fetch</code>: pasan por <code>core/api.js</code>, que puede responder local o
+        contra un backend real sin cambiar una línea de UI.
+      </p>
+
+      <div class="grid grid--4">
+        <div class="stat"><strong>0</strong><span>Dependencias de build</span></div>
+        <div class="stat"><strong>1</strong><span>Store observable</span></div>
+        <div class="stat"><strong>2</strong><span>Modos de API</span></div>
+        <div class="stat"><strong>13</strong><span>Pantallas lazy</span></div>
+      </div>
+
+      <h2>Capas</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Capa</th><th>Archivos</th><th>Responsabilidad</th><th>No hace</th></tr></thead>
+          <tbody>
+            <tr><td>Entrada</td><td><code>index.html</code>, <code>main.js</code></td><td>Arranque, rutas, chrome, service worker.</td><td>Lógica de negocio.</td></tr>
+            <tr><td>Núcleo</td><td><code>core/store.js</code></td><td>Estado, mutaciones, persistencia, métricas.</td><td>DOM ni fetch.</td></tr>
+            <tr><td>Transporte</td><td><code>core/api.js</code></td><td>Contrato único; local o HTTP.</td><td>Reglas de UI.</td></tr>
+            <tr><td>Router</td><td><code>core/router.js</code></td><td>Hash routing, scroll, ciclo de vida.</td><td>Conocer pantallas concretas.</td></tr>
+            <tr><td>UI compartida</td><td><code>src/ui/*</code></td><td>Header, nav, sheets, cards, arte, motion.</td><td>Estado global.</td></tr>
+            <tr><td>Pantallas</td><td><code>src/screens/&lt;x&gt;/*</code></td><td>Render + mount + estilos propios.</td><td>Escribir en <code>localStorage</code>.</td></tr>
+            <tr><td>3D</td><td><code>src/three/stage.js</code></td><td>Ambiente WebGL opcional.</td><td>Bloquear el render.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Arranque</h2>
+      <pre><code>index.html
+  └─ main.js
+       ├─ loadStore()        <span class="c">// products.json + service.json + localStorage</span>
+       ├─ createApi(store)   <span class="c">// ?api=local | ?api=remote</span>
+       ├─ mountChrome()      <span class="c">// header, nav, sheets, toasts</span>
+       ├─ setupMotion()      <span class="c">// GSAP + ScrollTrigger</span>
+       └─ createRouter()     <span class="c">// renderiza la ruta del hash</span>
+</code></pre>
+      <p>
+        Antes de cargar datos se muestran <em>skeletons</em>. Si el JSON no carga (por ejemplo,
+        abriendo con <code>file://</code>), se explica cómo levantar el servidor en vez de
+        dejar la pantalla en blanco.
+      </p>
+
+      <h2>Contrato de pantalla</h2>
+      <pre><code><span class="k">export default</span> {
+  title: <span class="s">"Catálogo"</span>,
+  render(ctx) { <span class="k">return</span> <span class="s">`&lt;section&gt;…&lt;/section&gt;`</span>; },
+  mount(root, ctx) { <span class="c">/* listeners, foco, fetch */</span> },
+  unmount() { <span class="c">/* limpiar timers y listeners globales */</span> },
+};</code></pre>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ctx</th><th>Tipo</th><th>Uso</th></tr></thead>
+          <tbody>
+            <tr><td><code>store</code></td><td>Store</td><td>Leer estado y llamar acciones.</td></tr>
+            <tr><td><code>api</code></td><td>Api</td><td>Crear orden, actualizar stock, stats.</td></tr>
+            <tr><td><code>navigate</code></td><td>(to, opts) =&gt; void</td><td>Cambiar de ruta; <code>replace</code> evita historial extra.</td></tr>
+            <tr><td><code>params</code></td><td>{ id? }</td><td>Segmento dinámico (<code>/product/:id</code>).</td></tr>
+            <tr><td><code>query</code></td><td>URLSearchParams</td><td>Filtros y tabs.</td></tr>
+            <tr><td><code>toast</code></td><td>(msg, opts) =&gt; void</td><td>Feedback no bloqueante.</td></tr>
+            <tr><td><code>openSheet</code></td><td>({ title, body }) =&gt; Element</td><td>Bottom sheet; devuelve el nodo para listeners.</td></tr>
+            <tr><td><code>ask</code></td><td>(opts) =&gt; Promise&lt;bool&gt;</td><td>Confirmación con tono danger.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Estado y persistencia</h2>
+      <p>La clave es <code>mega.v4</code>. El store guarda una copia completa y la reescribe en cada <code>commit()</code>.</p>
+      <pre><code>{
+  products: Product[14],
+  categories: Category[8],
+  service: { meta, items, faq },
+  cart: [{ productId, colorId, qty }],
+  favorites: [productId],
+  orders: Order[18],
+  profile: { name, phone, email, address, city, region },
+  settings: { notifications, biometrics, newsletter },
+  checkout: { payment, delivery },
+  lastOrderId: "MT-1043" | null
+}</code></pre>
+      <h3>Reglas de mutación</h3>
+      <ol class="steps">
+        <li><strong>Una acción por cambio.</strong> <code>addToCart</code>, <code>setQty</code>, <code>toggleFavorite</code>, <code>createOrder</code>, <code>updateProduct</code>…</li>
+        <li><strong>Validar antes de escribir.</strong> Stock, cantidades y campos obligatorios.</li>
+        <li><strong>Commit único.</strong> Persistir y notificar a los suscriptores una sola vez.</li>
+        <li><strong>Derivar, no duplicar.</strong> Totales, contadores y métricas se calculan con getters.</li>
+      </ol>
+
+      <h2>Los dos modos de API</h2>
+      <div class="grid grid--2">
+        <div class="card card--lime">
+          <h3>Local · por defecto</h3>
+          <p><code>?api=local</code> o sin parámetro. Cada método espera 90–210 ms para simular red y resuelve contra el store. Funciona offline y no necesita servidor de API.</p>
+        </div>
+        <div class="card card--gold">
+          <h3>Remoto · <code>?api=remote</code></h3>
+          <p>Hace <code>fetch</code> a <code>/api/...</code>. El mock de <code>api/mock/server.mjs</code> implementa el mismo contrato. La UI no cambia.</p>
+        </div>
+      </div>
+      <pre><code><span class="k">const</span> api = createApi(store);
+<span class="k">await</span> api.createOrder(payload); <span class="c">// local o HTTP, misma firma</span>
+<span class="k">await</span> api.updateProduct(id, { stock: <span class="n">12</span> });</code></pre>
+
+      <h2>Router y ciclo de vida</h2>
+      <ul>
+        <li>Hash routing: <code>#/ruta?query</code>. No requiere rewrites en Vercel.</li>
+        <li>Cada navegación incrementa un token; una carga vieja no puede pisar la nueva.</li>
+        <li>Guarda <code>scrollTop</code> de <code>#view</code> por ruta y lo restaura al volver.</li>
+        <li><code>onBefore</code>: <code>cleanup()</code> de GSAP, cierra sheets, <code>begin(view)</code> y actualiza el chrome.</li>
+        <li><code>onAfter</code>: <code>pageIn</code>, <code>reveal</code>, <code>tiltCards</code>, <code>ScrollTrigger.refresh()</code>.</li>
+        <li>Los módulos de pantalla se cargan con <code>import()</code>: el primer render solo baja Home.</li>
+      </ul>
+
+      <h2>Movimiento</h2>
+      <p>
+        GSAP + ScrollTrigger se cargan como globales vendorizados. <code>motion.js</code> expone
+        <code>begin</code>, <code>cleanup</code>, <code>pageIn</code>, <code>reveal</code>,
+        <code>tiltCards</code> y <code>heroParallax</code>. Si las librerías no están, cae a
+        <code>IntersectionObserver</code> y, con <code>prefers-reduced-motion</code>, muestra
+        todo sin animación.
+      </p>
+      <div class="callout callout--warn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 2.5 20h19z"/><path d="M12 9v5M12 17h.01"/></svg>
+        <div><strong>Una animación nunca oculta contenido para siempre.</strong> El CSS base deja <code>[data-reveal]</code> visible si no hay JS; la clase <code>.js</code> activa el estado inicial y el observer lo revierte.</div>
+      </div>
+
+      <h2>PWA</h2>
+      <p>
+        <code>manifest.webmanifest</code> define nombre, colores, iconos y modo
+        <code>standalone</code>. El service worker (<code>app/sw.js</code>) se registra solo si
+        la URL incluye <code>?sw=1</code>, para no interferir mientras se edita.
+      </p>
+      <pre><code><span class="c"># activar caché offline</span>
+http://127.0.0.1:8787/app/?sw=1#/home
+</code></pre>
+
+      <h2>Rendimiento</h2>
+      <ul>
+        <li>Sin framework ni build: HTML + CSS + módulos nativos.</li>
+        <li>14 productos y arte SVG inline: no hay imágenes de red.</li>
+        <li>Fuentes locales con <code>font-display: swap</code>.</li>
+        <li>Three.js solo en Home y solo si hay WebGL; se descarta al salir.</li>
+        <li>Listas cortas: re-render completo es más simple y más rápido que un diff manual.</li>
+      </ul>
+
+      <h2>Seguridad y límites</h2>
+      <div class="grid grid--2">
+        <div class="card">
+          <h3>Qué protege el prototipo</h3>
+          <ul>
+            <li>No hay secretos en el frontend.</li>
+            <li>No se piden datos de tarjeta reales.</li>
+            <li>Los totales se recalculan al crear la orden en un backend real.</li>
+            <li>El CSV se genera localmente con datos del propio usuario.</li>
+          </ul>
+        </div>
+        <div class="card card--gold">
+          <h3>Qué falta para producción</h3>
+          <ul>
+            <li>Autenticación y roles (admin/cliente).</li>
+            <li>Validación de stock y precios en servidor.</li>
+            <li>Pasarela de pago con webhooks firmados.</li>
+            <li>Base de datos, auditoría y backups.</li>
+            <li>Rate limiting y CORS restringido.</li>
+          </ul>
+        </div>
+      </div>
+
+      <footer class="docs-foot">
+        <span>MEGA TECHNOLOGY · Documentd v4</span>
+        <span><a href="./diagram.html">Conexiones</a> · <a href="./api.html">API</a></span>
+      </footer>
+    </main>
+  </body>
+</html>

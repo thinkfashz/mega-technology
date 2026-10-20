@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mega_black">#060606</color>
+    <color name="mega_surface">#111111</color>
+    <color name="mega_lime">#C8F542</color>
+    <color name="mega_gold">#D3A94F</color>
+    <color name="mega_ink">#F7F7F3</color>
+</resources>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#060606" />
+    <title>Diseño · Documentd MEGA TECHNOLOGY</title>
+    <link rel="stylesheet" href="./assets/docs.css" />
+    <script src="./assets/docs.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Saltar al contenido</a>
+    <div data-docs-nav></div>
+
+    <main id="main" class="docs-main">
+      <div class="docs-topbar">
+        <p class="docs-crumb">Documentd / <strong>Diseño</strong></p>
+        <div class="docs-actions"><span class="docs-pill docs-pill--gold">Reutiliza fabrick-design</span></div>
+      </div>
+
+      <p class="docs-eyebrow">Sistema visual</p>
+      <h1>Un solo look,<br />cero hex sueltos</h1>
+      <p class="lead">
+        La app entera se apoya en <code>app/styles/tokens.css</code>. Ninguna pantalla escribe
+        un color literal: si cambia un token, cambia todo. Esta página documenta la paleta,
+        la escala tipográfica, los componentes y el orden normativo de cada vista.
+      </p>
+
+      <div class="callout">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg>
+        <div><strong>Regla de oro:</strong> este sistema hereda la skill <code>fabrick-design</code>. Si el usuario pide “otro panel”, no se inventa una paleta nueva: se reutilizan estos tokens y componentes.</div>
+      </div>
+
+      <h2>Paleta</h2>
+      <div class="swatches">
+        <div class="swatch"><i style="background:#060606"></i><div><strong>Fondo</strong><span>--m-bg · #060606</span></div></div>
+        <div class="swatch"><i style="background:#111111"></i><div><strong>Superficie</strong><span>--m-surface · #111111</span></div></div>
+        <div class="swatch"><i style="background:#161616"></i><div><strong>Superficie 2</strong><span>--m-surface-2 · #161616</span></div></div>
+        <div class="swatch"><i style="background:#262626"></i><div><strong>Línea</strong><span>--m-line · #262626</span></div></div>
+        <div class="swatch"><i style="background:#f7f7f3"></i><div><strong>Texto</strong><span>--m-text · #f7f7f3</span></div></div>
+        <div class="swatch"><i style="background:#ababa6"></i><div><strong>Texto 2</strong><span>--m-text-2 · #ababa6</span></div></div>
+        <div class="swatch"><i style="background:#c8f542"></i><div><strong>Lima</strong><span>--m-lime · #c8f542</span></div></div>
+        <div class="swatch"><i style="background:#d3a94f"></i><div><strong>Dorado</strong><span>--m-gold · #d3a94f</span></div></div>
+        <div class="swatch"><i style="background:#ff6b6b"></i><div><strong>Error</strong><span>--m-err · #ff6b6b</span></div></div>
+      </div>
+
+      <h3>Uso del color</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Token</th><th>Dónde</th><th>No usar para</th></tr></thead>
+          <tbody>
+            <tr><td><code>--m-lime</code></td><td>CTA principal, precios, estados activos, foco.</td><td>Texto largo sobre negro (cansa la vista).</td></tr>
+            <tr><td><code>--m-gold</code></td><td>Marca, badges premium, acentos editoriales.</td><td>Botones masivos: compite con el CTA lima.</td></tr>
+            <tr><td><code>--m-text-3</code></td><td>Metadatos, ayudas, contadores.</td><td>Textos que deben leerse primero.</td></tr>
+            <tr><td><code>--m-err</code></td><td>Errores, eliminar, stock agotado.</td><td>Decoración o énfasis genérico.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Tipografía</h2>
+      <div class="card">
+        <div class="type-row"><strong style="font-family:var(--brand);font-size:1.7rem;letter-spacing:.08em">MEGA TECHNOLOGY</strong><span>Cinzel 600 · marca</span></div>
+        <div class="type-row"><strong style="font-size:2rem;font-weight:800;letter-spacing:-.045em">NUEVA SERIE</strong><span>Inter 800 · display</span></div>
+        <div class="type-row"><strong style="font-size:1.15rem;font-weight:800">Título de sección</strong><span>Inter 800 · 18–20 px</span></div>
+        <div class="type-row"><strong style="font-size:.9rem;font-weight:600">Título de tarjeta</strong><span>Inter 600 · 13–15 px</span></div>
+        <div class="type-row"><span style="color:var(--muted);font-size:.85rem">Texto de apoyo y descripciones</span><span>Inter 400 · 13–14 px</span></div>
+        <div class="type-row"><span style="color:var(--dim);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase">METADATO / ETIQUETA</span><span>Inter 700 · 10–11 px</span></div>
+      </div>
+      <p class="small">Los títulos de sección en mayúsculas llevan un subrayado lima de 2–3 px, de ancho fijo (no completo). Es la firma visual de la marca.</p>
+
+      <h2>Espaciado, radios y sombras</h2>
+      <div class="grid grid--3">
+        <div class="card"><h3>Espaciado</h3><p class="small">Base 4 px. Gutter móvil <code>16 px</code>; separación entre secciones <code>24–28 px</code>; gap de grilla <code>10 px</code>.</p></div>
+        <div class="card"><h3>Radios</h3><p class="small">Botones <code>99 px</code> (pill), tarjetas <code>16–18 px</code>, hojas <code>24 px</code> arriba, inputs <code>12 px</code>.</p></div>
+        <div class="card"><h3>Sombras</h3><p class="small">Casi no se usan. El relieve viene de bordes <code>#232323</code> y degradados internos. Glow lima solo en foco y gráfico.</p></div>
+      </div>
+
+      <h2>Componentes base</h2>
+      <h3>Botones</h3>
+      <div class="ds-components">
+        <span class="ds-btn ds-btn--lime">Comprar ahora →</span>
+        <span class="ds-btn ds-btn--gold">Nuevo producto</span>
+        <span class="ds-btn ds-btn--ghost">Ver todo</span>
+        <span class="ds-chip ds-chip--on">Todo el catálogo</span>
+        <span class="ds-chip">Audio</span>
+        <span class="ds-badge">BESTSELLER</span>
+      </div>
+      <ul>
+        <li><strong>Lima:</strong> una sola acción principal por pantalla.</li>
+        <li><strong>Dorado:</strong> acciones de administración o marca, nunca dos juntas.</li>
+        <li><strong>Ghost:</strong> acciones secundarias; borde visible, fondo casi negro.</li>
+      </ul>
+
+      <h3>Tarjetas</h3>
+      <div class="grid grid--3">
+        <div class="card"><div class="card__icon">★</div><h3>Producto</h3><p class="small">Arte SVG, badge, corazón, nombre, precio y rating. 2 columnas en móvil.</p></div>
+        <div class="card card--gold"><div class="card__icon">◆</div><h3>KPI</h3><p class="small">Etiqueta, valor grande, delta. El panel usa 4 en grilla 2 × 2.</p></div>
+        <div class="card card--lime"><div class="card__icon">✓</div><h3>Estado</h3><p class="small">Pill con color semántico: pendiente, pagado, en camino, entregado, cancelado.</p></div>
+      </div>
+
+      <h3>Hojas (bottom sheets)</h3>
+      <p>Se usan para filtros, edición de perfil, dirección, detalle de pedido y formularios de admin. Fondo <code>#0d0d0d</code>, radio superior 24 px, handle de 40 × 4 px, botón de cierre de 32 px. El overlay es <code>rgba(3,3,3,.72)</code>.</p>
+
+      <h3>Formularios</h3>
+      <p>Input de 48–52 px de alto, icono a la izquierda en dorado apagado, borde <code>#2c2c2c</code> y foco lima con anillo de 3 px al 10 %. Los errores son texto debajo, no solo borde rojo.</p>
+
+      <h2>El orden de una pantalla</h2>
+      <p>Norma heredada de <code>fabrick-design</code>. Toda vista nueva respeta esta secuencia:</p>
+      <ol class="steps">
+        <li><strong>Header.</strong> Marca + acción de contexto (buscar, carrito, volver). Nunca duplicar navegación.</li>
+        <li><strong>Título y propósito.</strong> Una línea que diga qué hace la pantalla, sin adornos.</li>
+        <li><strong>Contenido primario.</strong> Lo que el usuario vino a ver o hacer, arriba y sin scroll.</li>
+        <li><strong>Contenido secundario.</strong> Relacionados, recomendaciones, ayuda.</li>
+        <li><strong>Acción.</strong> CTA fijo si la tarea es continua; inline si es una sección.</li>
+        <li><strong>Navegación inferior.</strong> Solo en destinos de tab. En flujos de compra se oculta el estado activo, no la barra.</li>
+        <li><strong>Notas y confianza.</strong> Pagos, garantía, persistencia local.</li>
+      </ol>
+
+      <h2>Movimiento</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Patrón</th><th>Duración</th><th>Dónde</th></tr></thead>
+          <tbody>
+            <tr><td>Entrada de pantalla</td><td>500 ms · power3.out</td><td>Todas las vistas (<code>pageIn</code>).</td></tr>
+            <tr><td>Reveal de sección</td><td>620 ms · stagger 55 ms</td><td>Home, admin, listas largas.</td></tr>
+            <tr><td>Hover de tarjeta</td><td>200 ms · translateY(-2 px)</td><td>Producto y categoría.</td></tr>
+            <tr><td>Tilt 3D</td><td>RAF, 8–10°</td><td>Solo punteros finos (<code>hover: hover</code>).</td></tr>
+            <tr><td>Parallax de hero</td><td>scrub 0.6</td><td>Home.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout callout--warn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <div><strong>Respeta <code>prefers-reduced-motion</code>.</strong> Con movimiento reducido, todo aparece sin transición y sin parallax. El contenido nunca depende de una animación para ser visible.</div>
+      </div>
+
+      <h2>Accesibilidad mínima</h2>
+      <ul>
+        <li>Contraste ≥ 4.5:1 en texto normal y ≥ 3:1 en texto grande.</li>
+        <li>Área táctil ≥ 44 × 44 px en acciones de icono.</li>
+        <li>Foco visible en todos los controles; nunca <code>outline: none</code> sin reemplazo.</li>
+        <li>Un <code>h1</code> por vista; jerarquía sin saltos.</li>
+        <li>Botones con texto o <code>aria-label</code>; iconos decorativos con <code>aria-hidden</code>.</li>
+        <li>Formularios con <code>label</code> visible y errores en texto.</li>
+      </ul>
+
+      <h2>Qué no hacer</h2>
+      <div class="grid grid--2">
+        <div class="card">
+          <h3>Evitar</h3>
+          <ul>
+            <li>Más de un CTA lima por pantalla.</li>
+            <li>Tarjetas con sombras grandes y bordes brillantes a la vez.</li>
+            <li>Texto gris claro sobre negro para párrafos largos.</li>
+            <li>Animaciones que bloquean el scroll o el primer render.</li>
+            <li>Fotos externas: el arte es SVG local.</li>
+          </ul>
+        </div>
+        <div class="card card--lime">
+          <h3>Preferir</h3>
+          <ul>
+            <li>Jerarquía por tamaño y peso, no por colores nuevos.</li>
+            <li>Bordes finos y degradados suaves para el relieve.</li>
+            <li>Lima para acción, dorado para marca, gris para metadata.</li>
+            <li>Componentes compartidos antes que CSS nuevo.</li>
+            <li>Estados vacíos con una acción clara.</li>
+          </ul>
+        </div>
+      </div>
+
+      <footer class="docs-foot">
+        <span>MEGA TECHNOLOGY · Documentd v4</span>
+        <span><a href="./screens.html">Pantallas</a> · <a href="./architecture.html">Arquitectura</a></span>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+/* checkout.css — Formulario de compra */
+
+.checkout {
+  padding-top: 8px;
+}
+
+.flow-head {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  padding: 4px var(--m-gutter) 0;
+  text-align: center;
+}
+
+.flow-title {
+  font-size: 1.42rem;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+.flow-sub {
+  font-size: 0.72rem;
+  color: var(--m-text-2);
+  text-wrap: balance;
+}
+
+.flow-head .flow-steps {
+  margin-top: 12px;
+}
+
+.checkout-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 0 var(--m-gutter);
+}
+
+.checkout__payment {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.checkout__payment .choice {
+  border-color: var(--m-lime-line);
+  background: linear-gradient(180deg, rgba(200, 245, 66, 0.06), transparent), #141414;
+}
+.checkout__payment .choice .choice__icon {
+  color: var(--m-lime);
+}
+.checkout__payment .choice .radio-dot {
+  border-color: var(--m-lime);
+  background: var(--m-lime);
+}
+.checkout__payment .choice .radio-dot::after {
+  display: grid;
+  place-items: center;
+  width: auto;
+  height: auto;
+  background: none;
+  transform: none;
+  content: "✓";
+  color: var(--m-lime-ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.checkout__terms {
+  margin-top: -2px;
+  text-align: center;
+  font-size: 0.6rem;
+  line-height: 1.5;
+  color: var(--m-text-3);
+}
+.checkout__terms a {
+  color: var(--m-text-2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

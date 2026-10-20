@@ -1,0 +1,233 @@
+/* service.css — Servicio técnico */
+
+.service {
+  padding-top: 10px;
+}
+
+.service__head {
+  padding: 0 var(--m-gutter);
+}
+.service__title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+.service__sub {
+  margin-top: 3px;
+  font-size: 0.8rem;
+  color: var(--m-text-2);
+}
+
+.service__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px var(--m-gutter) 0;
+  padding: 11px 16px;
+  border-radius: var(--m-r-pill);
+  background: var(--m-grad-lime);
+  color: var(--m-lime-ink);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  box-shadow: var(--m-shadow-lime);
+}
+.service__badge svg {
+  flex: none;
+}
+
+.service__section {
+  margin: 24px var(--m-gutter) 10px;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.service__list {
+  display: grid;
+  gap: 9px;
+  padding: 0 var(--m-gutter);
+}
+
+.service-card {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #232323;
+  border-radius: 15px;
+  background: linear-gradient(180deg, #151515, #101010);
+  text-align: left;
+  transition:
+    border-color var(--m-dur-2) var(--m-ease),
+    transform var(--m-dur-2) var(--m-ease);
+}
+.service-card:hover {
+  border-color: #303030;
+  transform: translateY(-1px);
+}
+.service-card__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 58px;
+  border-radius: 12px;
+  background: #0c0c0c;
+  color: var(--m-lime);
+}
+.service-card__body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.service-card__title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.service-card__desc {
+  font-size: 0.66rem;
+  line-height: 1.35;
+  color: var(--m-text-2);
+}
+.service-card__aside {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  align-self: center;
+}
+.service-card__price {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--m-lime);
+  white-space: nowrap;
+}
+.service-card__arrow {
+  color: var(--m-lime);
+}
+
+.service__reasons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0 var(--m-gutter);
+}
+.reason {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  padding: 14px 6px;
+  border: 1px solid #232323;
+  border-radius: 14px;
+  background: #101010;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--m-text-2);
+  line-height: 1.25;
+}
+.reason__icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--m-lime-line);
+  border-radius: 99px;
+  color: var(--m-lime);
+}
+
+.service__cta {
+  margin: 18px var(--m-gutter) 0;
+  width: calc(100% - var(--m-gutter) * 2);
+}
+
+.service__foot {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  font-size: 0.64rem;
+  color: var(--m-text-3);
+  text-align: center;
+}
+.service__foot p,
+.service__foot a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.service__foot a {
+  color: var(--m-gold);
+  font-weight: 600;
+}
+.service__foot svg {
+  flex: none;
+}
+
+.service__legal {
+  margin: 14px var(--m-gutter) 0;
+  text-align: center;
+  font-size: 0.58rem;
+  color: var(--m-text-4);
+}
+
+/* ---------- Formulario de servicio ---------- */
+
+.field__box--select {
+  grid-template-columns: 42px minmax(0, 1fr) 20px;
+  padding-right: 10px;
+}
+.field__box--select select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--m-text);
+}
+.field__box--select > svg {
+  color: var(--m-text-3);
+  pointer-events: none;
+}
+.field__box--area {
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: start;
+  padding-top: 8px;
+}
+.field__box--area .field__icon {
+  margin-top: 2px;
+}
+
+.service-form {
+  display: grid;
+  gap: 12px;
+}
+.service-form__legal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.6rem;
+  color: var(--m-text-3);
+}
+
+@media (max-width: 360px) {
+  .service__title {
+    font-size: 1.8rem;
+  }
+  .service-card {
+    grid-template-columns: 46px minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 10px;
+  }
+  .service-card__icon {
+    width: 46px;
+    height: 52px;
+  }
+}

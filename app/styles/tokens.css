@@ -1,0 +1,126 @@
+/* ============================================================
+   MEGA TECHNOLOGY · tokens.css
+   Única fuente de verdad del color, tipo, forma y movimiento.
+   Regla: ninguna pantalla escribe un hex suelto. Usa var(--m-*).
+   ============================================================ */
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/inter-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cinzel";
+  src: url("../assets/fonts/cinzel-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---------- Superficie ---------- */
+  --m-bg: #060606;
+  --m-bg-soft: #0a0a0a;
+  --m-surface: #111111;
+  --m-surface-2: #161616;
+  --m-surface-3: #1c1c1c;
+  --m-surface-4: #242424;
+  --m-line: #262626;
+  --m-line-soft: #1b1b1b;
+  --m-overlay: rgba(3, 3, 3, 0.72);
+
+  /* ---------- Texto ---------- */
+  --m-text: #f7f7f3;
+  --m-text-2: #ababa6;
+  --m-text-3: #767670;
+  --m-text-4: #565650;
+  --m-on-accent: #0a0f00;
+
+  /* ---------- Marca ---------- */
+  --m-lime: #c8f542;
+  --m-lime-bright: #d6ff58;
+  --m-lime-deep: #a8d62e;
+  --m-lime-ink: #0d1400;
+  --m-lime-soft: rgba(200, 245, 66, 0.12);
+  --m-lime-line: rgba(200, 245, 66, 0.34);
+
+  --m-gold: #d3a94f;
+  --m-gold-light: #f2d591;
+  --m-gold-deep: #8a6425;
+  --m-gold-soft: rgba(211, 169, 79, 0.12);
+  --m-gold-line: rgba(211, 169, 79, 0.32);
+
+  /* ---------- Semánticos ---------- */
+  --m-ok: #3ddc84;
+  --m-warn: #ffb020;
+  --m-err: #ff5d5d;
+  --m-info: #5aa9ff;
+
+  /* ---------- Gradientes ---------- */
+  --m-grad-lime: linear-gradient(135deg, #d6ff58 0%, #c8f542 48%, #a8d62e 100%);
+  --m-grad-gold: linear-gradient(135deg, #f7e0a8 0%, #d3a94f 42%, #8a6425 100%);
+  --m-grad-card: linear-gradient(168deg, #191919 0%, #111111 58%, #0c0c0c 100%);
+  --m-grad-hero: radial-gradient(120% 90% at 78% 8%, rgba(211, 169, 79, 0.16) 0%, transparent 52%),
+    radial-gradient(90% 70% at 12% 0%, rgba(200, 245, 66, 0.12) 0%, transparent 48%),
+    linear-gradient(180deg, #0d0d0d 0%, #080808 100%);
+
+  /* ---------- Tipografía ---------- */
+  --m-font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --m-font-brand: "Cinzel", "Times New Roman", serif;
+
+  --m-fs-display: clamp(2rem, 9vw, 2.6rem);
+  --m-fs-h1: 1.5rem;
+  --m-fs-h2: 1.06rem;
+  --m-fs-body: 0.94rem;
+  --m-fs-sm: 0.82rem;
+  --m-fs-xs: 0.7rem;
+  --m-fs-2xs: 0.6rem;
+
+  /* ---------- Forma ---------- */
+  --m-r-xs: 10px;
+  --m-r-sm: 14px;
+  --m-r-md: 18px;
+  --m-r-lg: 24px;
+  --m-r-xl: 30px;
+  --m-r-pill: 999px;
+
+  /* ---------- Espacio (base 4) ---------- */
+  --m-sp-1: 4px;
+  --m-sp-2: 8px;
+  --m-sp-3: 12px;
+  --m-sp-4: 16px;
+  --m-sp-5: 20px;
+  --m-sp-6: 24px;
+  --m-sp-7: 32px;
+  --m-sp-8: 40px;
+  --m-sp-9: 56px;
+  --m-gutter: 18px;
+
+  /* ---------- Elevación ---------- */
+  --m-shadow-card: 0 20px 44px -28px rgba(0, 0, 0, 0.95);
+  --m-shadow-float: 0 26px 60px -24px rgba(0, 0, 0, 0.9);
+  --m-shadow-lime: 0 14px 34px -16px rgba(200, 245, 66, 0.45);
+  --m-shadow-gold: 0 14px 34px -18px rgba(211, 169, 79, 0.42);
+
+  /* ---------- Movimiento ---------- */
+  --m-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --m-ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --m-dur-1: 140ms;
+  --m-dur-2: 240ms;
+  --m-dur-3: 420ms;
+  --m-dur-4: 700ms;
+
+  /* ---------- Layout ---------- */
+  --m-app-max: 430px;
+  --m-header-h: 62px;
+  --m-nav-h: 66px;
+  --m-safe-b: env(safe-area-inset-bottom, 0px);
+  --m-safe-t: env(safe-area-inset-top, 0px);
+
+  /* ---------- Charts ---------- */
+  --m-chart-line: var(--m-lime);
+  --m-chart-fill: rgba(200, 245, 66, 0.16);
+  --m-chart-grid: #222222;
+}

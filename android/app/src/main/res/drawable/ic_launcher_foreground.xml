@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Monograma M dorado: mismo trazo que app/assets/brand/icon-512.svg -->
+    <path
+        android:fillColor="#D3A94F"
+        android:pathData="M30,78V32l13,13 11,-14 11,14 13,-13v46h-10V53l-9,11h-10l-9,-11v25z" />
+    <path
+        android:fillColor="#D3A94F"
+        android:pathData="M74,26h9v9h-9z" />
+</vector>

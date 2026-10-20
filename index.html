@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#060606" />
+    <title>MEGA TECHNOLOGY · Phone Shop</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; min-height: 100vh; display: grid; place-items: center;
+        background: radial-gradient(900px 500px at 85% -10%, rgba(211,169,79,.12), transparent 60%),
+                    radial-gradient(700px 420px at 0% 20%, rgba(200,245,66,.06), transparent 60%), #060606;
+        color: #f7f7f3; font-family: Inter, system-ui, -apple-system, sans-serif; padding: 24px;
+      }
+      .wrap { width: min(920px, 100%); }
+      .eyebrow { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #c8f542; font-weight: 800; }
+      h1 { font-size: clamp(30px, 6vw, 54px); line-height: 1.05; letter-spacing: -.03em; margin: 12px 0 8px; font-weight: 800; }
+      h1 em { font-style: normal; color: #d3a94f; }
+      p { color: #ababa6; max-width: 62ch; line-height: 1.6; margin: 0 0 26px; }
+      .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      a.card {
+        display: grid; gap: 8px; padding: 20px; border: 1px solid #262626; border-radius: 18px;
+        background: linear-gradient(180deg, #121212, #0c0c0c); color: #f7f7f3; text-decoration: none;
+        transition: border-color .2s, transform .2s;
+      }
+      a.card:hover { border-color: #c8f542; transform: translateY(-2px); }
+      a.card strong { font-size: 17px; letter-spacing: -.02em; }
+      a.card span { font-size: 13px; color: #ababa6; line-height: 1.5; }
+      a.card b { color: #c8f542; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+      .foot { margin-top: 26px; font-size: 12px; color: #565650; }
+      code { background: #1a1a1a; color: #d3a94f; padding: 2px 6px; border-radius: 5px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p class="eyebrow">Ecommerce móvil · v4.0</p>
+      <h1>MEGA TECHNOLOGY<br /><em>Phone Shop</em></h1>
+      <p>
+        13 pantallas de tienda y checkout, panel administrador con datos reales, API documentada
+        y el código completo. Todo en HTML, CSS y JavaScript, sin build y sin dependencias.
+      </p>
+      <div class="cards">
+        <a class="card" href="./app/">
+          <b>Tienda</b>
+          <strong>Abrir la app</strong>
+          <span>Catálogo, carrito, checkout, pago, envío y mis pedidos.</span>
+        </a>
+        <a class="card" href="./app/#/admin">
+          <b>Panel</b>
+          <strong>Administración</strong>
+          <span>KPIs, gráfico de ventas, pedidos, stock, precios y export CSV.</span>
+        </a>
+        <a class="card" href="./Documentd/">
+          <b>Documentación</b>
+          <strong>Documentd</strong>
+          <span>Diseño, pantallas, arquitectura, diagrama animado, API, Android y curso.</span>
+        </a>
+        <a class="card" href="./api/">
+          <b>API</b>
+          <strong>Endpoints</strong>
+          <span>Contrato OpenAPI y documentación por dominio.</span>
+        </a>
+      </div>
+      <p class="foot">
+        Para correrlo local: <code>bash serve.sh 8787</code> · mock de API: <code>node api/mock/server.mjs</code>
+      </p>
+    </div>
+  </body>
+</html>

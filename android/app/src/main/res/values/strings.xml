@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MEGA TECHNOLOGY</string>
+    <string name="app_tagline">Phone Shop · v4</string>
+
+    <string name="nav_home">Inicio</string>
+    <string name="nav_catalog">Tienda</string>
+    <string name="nav_categories">Categorías</string>
+    <string name="nav_favorites">Favoritos</string>
+    <string name="nav_profile">Perfil</string>
+
+    <string name="cta_buy">Comprar ahora</string>
+    <string name="cta_add_cart">Agregar al carrito</string>
+    <string name="cta_checkout">Ir a pagar</string>
+    <string name="cta_confirm_purchase">Confirmar compra</string>
+    <string name="cta_confirm_shipping">Confirmar envío</string>
+
+    <string name="empty_cart">Tu carrito está vacío</string>
+    <string name="empty_orders">Todavía no hay pedidos</string>
+    <string name="search_hint">Buscar fundas, iPhone, audio…</string>
+    <string name="content_description_favorite">Guardar en favoritos</string>
+    <string name="content_description_remove_favorite">Quitar de favoritos</string>
+    <string name="content_description_back">Volver</string>
+    <string name="content_description_cart">Carrito, %1$d productos</string>
+    <string name="content_description_product_image">Imagen de %1$s</string>
+</resources>

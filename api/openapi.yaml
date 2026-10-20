@@ -1,0 +1,597 @@
+openapi: 3.1.0
+info:
+  title: MEGA TECHNOLOGY · Phone Shop API
+  version: 4.0.0
+  description: |
+    Contrato del ecommerce. El prototipo corre con un adaptador local
+    (`?api=local`) y este mismo contrato se implementa en `api/mock/server.mjs`.
+    Los endpoints marcados con `x-status: proposed` todavía no están implementados
+    en el prototipo; documentan lo necesario para producción.
+  contact:
+    name: Soluciones Fabrick
+servers:
+  - url: http://127.0.0.1:8788/api
+    description: Mock local (Node, sin dependencias)
+  - url: https://api.megatechnology.cl/api
+    description: Producción (propuesto)
+tags:
+  - name: Catalog
+    description: Productos y categorías.
+  - name: Orders
+    description: Creación, listado y estado de pedidos.
+  - name: Service
+    description: Solicitudes de servicio técnico.
+  - name: Admin
+    description: Métricas y administración del catálogo.
+  - name: Payments
+    description: Intención de pago y webhook (propuesto).
+  - name: Shipping
+    description: Cotización de envío (propuesto).
+  - name: Auth
+    description: Sesión y roles (propuesto).
+
+paths:
+  /products:
+    get:
+      tags: [Catalog]
+      summary: Listar productos
+      operationId: listProducts
+      parameters:
+        - name: q
+          in: query
+          description: Texto libre sobre nombre, nombre corto, categoría y tags.
+          schema: { type: string }
+        - name: category
+          in: query
+          schema: { type: string, example: funda-silicona }
+        - name: color
+          in: query
+          schema: { type: string, example: lime }
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [relevance, priceAsc, priceDesc, rating]
+            default: relevance
+        - name: maxPrice
+          in: query
+          schema: { type: integer, minimum: 0, example: 50000 }
+      responses:
+        "200":
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Product" }
+        "500": { $ref: "#/components/responses/Error" }
+  /products/{id}:
+    get:
+      tags: [Catalog]
+      summary: Obtener un producto por id o slug
+      operationId: getProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, example: p1 }
+      responses:
+        "200":
+          description: Producto encontrado
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Product" }
+        "404": { $ref: "#/components/responses/NotFound" }
+  /categories:
+    get:
+      tags: [Catalog]
+      summary: Listar categorías
+      operationId: listCategories
+      responses:
+        "200":
+          description: Categorías con conteo de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Category" }
+
+  /orders:
+    get:
+      tags: [Orders]
+      summary: Listar pedidos
+      operationId: listOrders
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, paid, shipped, delivered, cancelled]
+        - name: limit
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 100, default: 50 }
+      responses:
+        "200":
+          description: Pedidos del usuario o todos (admin)
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Order" }
+    post:
+      tags: [Orders]
+      summary: Crear una orden
+      operationId: createOrder
+      description: |
+        El servidor **recalcula** precios, stock y totales. El payload del cliente
+        solo identifica productos, colores y cantidades. Si el stock no alcanza,
+        responde 409 sin crear la orden.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateOrderRequest" }
+      responses:
+        "201":
+          description: Orden creada
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Order" }
+        "409": { $ref: "#/components/responses/Conflict" }
+        "422": { $ref: "#/components/responses/Validation" }
+  /orders/{id}:
+    get:
+      tags: [Orders]
+      summary: Obtener una orden
+      operationId: getOrder
+      parameters:
+        - $ref: "#/components/parameters/OrderId"
+      responses:
+        "200":
+          description: Orden
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Order" }
+        "404": { $ref: "#/components/responses/NotFound" }
+    patch:
+      tags: [Orders]
+      summary: Cambiar el estado de una orden
+      operationId: updateOrderStatus
+      parameters:
+        - $ref: "#/components/parameters/OrderId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  type: string
+                  enum: [pending, paid, shipped, delivered, cancelled]
+      responses:
+        "200":
+          description: Orden actualizada
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Order" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "409": { $ref: "#/components/responses/Conflict" }
+
+  /service-requests:
+    post:
+      tags: [Service]
+      summary: Crear solicitud de servicio técnico
+      operationId: createServiceRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateServiceRequest" }
+      responses:
+        "201":
+          description: Solicitud creada
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ServiceRequest" }
+        "422": { $ref: "#/components/responses/Validation" }
+
+  /admin/stats:
+    get:
+      tags: [Admin]
+      summary: Métricas del panel
+      operationId: getAdminStats
+      parameters:
+        - name: days
+          in: query
+          schema: { type: integer, enum: [7, 14, 30], default: 7 }
+      responses:
+        "200":
+          description: KPIs y series
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Stats" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+  /admin/products:
+    post:
+      tags: [Admin]
+      summary: Crear producto
+      operationId: createProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProductInput" }
+      responses:
+        "201":
+          description: Producto creado
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Product" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "422": { $ref: "#/components/responses/Validation" }
+  /admin/products/{id}:
+    patch:
+      tags: [Admin]
+      summary: Actualizar producto
+      operationId: updateProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string, minLength: 3 }
+                price: { type: integer, minimum: 0 }
+                stock: { type: integer, minimum: 0 }
+                description: { type: string }
+      responses:
+        "200":
+          description: Producto actualizado
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Product" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /payments/intent:
+    post:
+      tags: [Payments]
+      summary: Crear intención de pago
+      operationId: createPaymentIntent
+      x-status: proposed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [orderId, method]
+              properties:
+                orderId: { type: string, example: MT-1043 }
+                method: { type: string, enum: [card, apple, cash] }
+      responses:
+        "201":
+          description: Intención creada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string, example: pi_3Oabc }
+                  clientSecret: { type: string }
+                  amount: { type: integer, example: 278960 }
+                  currency: { type: string, example: CLP }
+                  status: { type: string, enum: [requires_payment_method, processing] }
+        "409": { $ref: "#/components/responses/Conflict" }
+  /payments/webhook:
+    post:
+      tags: [Payments]
+      summary: Webhook del proveedor de pago
+      operationId: paymentWebhook
+      x-status: proposed
+      description: Verifica la firma y marca la orden como `paid` de forma idempotente.
+      responses:
+        "200": { description: Evento aceptado }
+        "400": { description: Firma inválida }
+
+  /shipping/quote:
+    get:
+      tags: [Shipping]
+      summary: Cotizar envío
+      operationId: quoteShipping
+      x-status: proposed
+      parameters:
+        - name: subtotal
+          in: query
+          required: true
+          schema: { type: integer, minimum: 0 }
+        - name: method
+          in: query
+          required: true
+          schema: { type: string, enum: [express, free] }
+        - name: city
+          in: query
+          schema: { type: string }
+      responses:
+        "200":
+          description: Cotización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cost: { type: integer, example: 2990 }
+                  currency: { type: string, example: CLP }
+                  eta: { type: string, example: "24-48 h" }
+                  freeThreshold: { type: integer, example: 50000 }
+
+  /auth/session:
+    post:
+      tags: [Auth]
+      summary: Iniciar sesión
+      operationId: createSession
+      x-status: proposed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string, minLength: 8 }
+      responses:
+        "200":
+          description: Sesión creada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: { type: string }
+                  user:
+                    type: object
+                    properties:
+                      id: { type: string }
+                      name: { type: string }
+                      role: { type: string, enum: [customer, admin] }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+
+components:
+  parameters:
+    OrderId:
+      name: id
+      in: path
+      required: true
+      schema: { type: string, example: MT-1042 }
+
+  responses:
+    Error:
+      description: Error genérico
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    NotFound:
+      description: Recurso no encontrado
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Conflict:
+      description: Conflicto de estado o stock
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Validation:
+      description: Datos inválidos
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Unauthorized:
+      description: Falta autenticación o rol
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+
+  schemas:
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: string, example: STOCK_INSUFFICIENT }
+        message: { type: string, example: "No hay stock suficiente de Funda Silicona iPhone 15 Pro" }
+        details:
+          type: object
+          additionalProperties: true
+
+    Color:
+      type: object
+      required: [id, name, hex]
+      properties:
+        id: { type: string, example: lime }
+        name: { type: string, example: Lima }
+        hex: { type: string, pattern: "^#[0-9a-fA-F]{6}$", example: "#b7e33b" }
+
+    Art:
+      type: object
+      properties:
+        kind: { type: string, enum: [case, phone, buds, watch, charger, cable] }
+        color: { type: string, example: "#b7e33b" }
+        clear: { type: boolean }
+        leather: { type: boolean }
+        magsafe: { type: boolean }
+
+    Product:
+      type: object
+      required: [id, slug, name, price, stock, category, art, colors]
+      properties:
+        id: { type: string, example: p1 }
+        slug: { type: string, example: funda-silicona-iphone-15-pro }
+        name: { type: string, example: Funda Silicona iPhone 15 Pro }
+        shortName: { type: string, example: Funda Silicona }
+        category: { type: string, example: funda-silicona }
+        price: { type: integer, example: 12990 }
+        compareAt: { type: [integer, "null"], example: 15990 }
+        stock: { type: integer, example: 24 }
+        sold: { type: integer, example: 24 }
+        rating: { type: number, minimum: 0, maximum: 5, example: 4.8 }
+        reviews: { type: integer, example: 124 }
+        badge: { type: [string, "null"], example: BESTSELLER }
+        badgeTone: { type: string, enum: [lime, gold, soft, red] }
+        art: { $ref: "#/components/schemas/Art" }
+        colors:
+          type: array
+          items: { $ref: "#/components/schemas/Color" }
+        description: { type: string }
+        features:
+          type: array
+          items: { type: string }
+        freeShipping: { type: boolean }
+        express: { type: integer, example: 2990 }
+        tags:
+          type: array
+          items: { type: string }
+
+    ProductInput:
+      type: object
+      required: [name, category, price, stock, art]
+      properties:
+        name: { type: string, minLength: 3 }
+        category: { type: string, example: funda-silicona }
+        price: { type: integer, minimum: 0, example: 12990 }
+        stock: { type: integer, minimum: 0, example: 10 }
+        art: { $ref: "#/components/schemas/Art" }
+        colors:
+          type: array
+          items: { $ref: "#/components/schemas/Color" }
+        description: { type: string }
+
+    Category:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: string, example: funda-silicona }
+        name: { type: string, example: Funda Silicona }
+        count: { type: integer, example: 4 }
+        art: { $ref: "#/components/schemas/Art" }
+
+    Customer:
+      type: object
+      required: [name, phone, address, city]
+      properties:
+        name: { type: string, example: Camila Rojas }
+        phone: { type: string, example: "+56 9 8842 1177" }
+        email: { type: string, format: email }
+        address: { type: string, example: Av. Providencia 1234 }
+        city: { type: string, example: Providencia }
+        region: { type: string, example: Región Metropolitana }
+
+    OrderItem:
+      type: object
+      required: [productId, name, price, qty]
+      properties:
+        productId: { type: string }
+        name: { type: string }
+        colorId: { type: string }
+        colorName: { type: string }
+        price: { type: integer }
+        qty: { type: integer, minimum: 1 }
+        art: { $ref: "#/components/schemas/Art" }
+
+    TimelineStep:
+      type: object
+      properties:
+        key: { type: string, enum: [confirmed, preparing, onway, delivered] }
+        title: { type: string }
+        meta: { type: string }
+        done: { type: boolean }
+        current: { type: boolean }
+
+    Order:
+      type: object
+      required: [id, createdAt, status, items, subtotal, shipping, total, customer]
+      properties:
+        id: { type: string, example: MT-1042 }
+        createdAt: { type: string, format: date-time }
+        status: { type: string, enum: [pending, paid, shipped, delivered, cancelled] }
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/OrderItem" }
+        subtotal: { type: integer, example: 265970 }
+        shipping: { type: integer, example: 0 }
+        total: { type: integer, example: 265970 }
+        customer: { $ref: "#/components/schemas/Customer" }
+        payment: { type: string, enum: [card, apple, cash] }
+        delivery: { type: string, enum: [express, free] }
+        note: { type: string }
+        timeline:
+          type: array
+          items: { $ref: "#/components/schemas/TimelineStep" }
+
+    CreateOrderRequest:
+      type: object
+      required: [customer, items, payment, delivery]
+      properties:
+        customer: { $ref: "#/components/schemas/Customer" }
+        items:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [productId, qty]
+            properties:
+              productId: { type: string }
+              colorId: { type: string }
+              qty: { type: integer, minimum: 1 }
+        payment: { type: string, enum: [card, apple, cash] }
+        delivery: { type: string, enum: [express, free] }
+        note: { type: string }
+
+    CreateServiceRequest:
+      type: object
+      required: [device, model, issue, name, phone]
+      properties:
+        device: { type: string, example: iPhone }
+        model: { type: string, example: iPhone 14 Pro }
+        issue: { type: string, example: "Pantalla rota" }
+        name: { type: string, example: Camila Rojas }
+        phone: { type: string, example: "+56 9 8842 1177" }
+
+    ServiceRequest:
+      allOf:
+        - $ref: "#/components/schemas/CreateServiceRequest"
+        - type: object
+          properties:
+            id: { type: string, example: SR-8f2a1b }
+            createdAt: { type: string, format: date-time }
+            status: { type: string, enum: [received, quoted, repairing, done] }
+
+    Stats:
+      type: object
+      properties:
+        sales: { type: integer, example: 2131660 }
+        count: { type: integer, example: 16 }
+        avg: { type: integer, example: 133229 }
+        lowStock: { type: integer, example: 3 }
+        pending: { type: integer, example: 7 }
+        daily:
+          type: array
+          items:
+            type: object
+            properties:
+              date: { type: string, format: date-time }
+              value: { type: integer }
+        top:
+          type: array
+          items: { $ref: "#/components/schemas/Product" }
+        recent:
+          type: array
+          items: { $ref: "#/components/schemas/Order" }

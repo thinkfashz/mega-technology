@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "title": "Servicio Técnico MEGA TECHNOLOGY",
+    "schedule": "Lun – Sáb · 9:00 a 19:00",
+    "whatsapp": "+56 9 5555 1234",
+    "whatsappUrl": "https://wa.me/56955551234?text=Hola%2C%20necesito%20un%20diagn%C3%B3stico%20para%20mi%20iPhone",
+    "warrantyDays": 90,
+    "diagnosis": "Diagnóstico gratis · sin compromiso"
+  },
+  "services": [
+    {
+      "id": "s1",
+      "name": "Reparación de pantalla",
+      "icon": "screen",
+      "description": "Reemplazo de pantalla, vidrio y display OLED.",
+      "from": 59990,
+      "eta": "24–48 h",
+      "warrantyDays": 90
+    },
+    {
+      "id": "s2",
+      "name": "Cambio de batería",
+      "icon": "battery",
+      "description": "Nueva batería, hasta 100 % de capacidad.",
+      "from": 24990,
+      "eta": "2–4 h",
+      "warrantyDays": 90
+    },
+    {
+      "id": "s3",
+      "name": "Puerto de carga",
+      "icon": "plug",
+      "description": "Limpieza o reemplazo del puerto de carga.",
+      "from": 19990,
+      "eta": "2–4 h",
+      "warrantyDays": 90
+    },
+    {
+      "id": "s4",
+      "name": "Daño por agua",
+      "icon": "droplet",
+      "description": "Diagnóstico y limpieza por corrosión.",
+      "from": 34990,
+      "eta": "48–72 h",
+      "warrantyDays": 30
+    }
+  ],
+  "reasons": [
+    { "icon": "clock", "label": "Servicio 24–48 h" },
+    { "icon": "shield", "label": "Garantía 90 días" },
+    { "icon": "badge-check", "label": "Técnicos certificados" }
+  ],
+  "models": ["iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15", "iPhone 14", "iPhone 13", "Otro modelo"]
+}

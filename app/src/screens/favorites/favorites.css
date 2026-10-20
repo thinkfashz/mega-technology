@@ -1,0 +1,45 @@
+/* favorites.css — Favoritos */
+
+.favorites {
+  padding-top: 8px;
+}
+
+.favorites__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 var(--m-gutter);
+  margin-bottom: 14px;
+}
+
+.favorites__title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.favorites__sub {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  color: var(--m-text-2);
+}
+
+.favorites__grid {
+  padding: 0 var(--m-gutter);
+}
+
+.favorites__hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 16px;
+  font-size: 0.62rem;
+  color: var(--m-text-3);
+}
+.favorites__hint svg {
+  color: var(--m-lime);
+}

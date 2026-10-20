@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#060606" />
+    <meta name="description" content="Documentación de MEGA TECHNOLOGY · Phone Shop: pantallas, diseño, arquitectura, API, Android y curso." />
+    <title>Documentd · MEGA TECHNOLOGY</title>
+    <link rel="stylesheet" href="./assets/docs.css" />
+    <script src="./assets/docs.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Saltar al contenido</a>
+    <div data-docs-nav></div>
+
+    <main id="main" class="docs-main">
+      <div class="docs-topbar">
+        <p class="docs-crumb">Documentd / <strong>Inicio</strong></p>
+        <div class="docs-actions">
+          <span class="docs-pill docs-pill--live">● Prototipo operativo</span>
+          <a class="docs-pill" href="../app/">Abrir app ↗</a>
+        </div>
+      </div>
+
+      <section class="doc-hero">
+        <p class="docs-eyebrow">Ecommerce móvil · v4.0</p>
+        <h1>MEGA TECHNOLOGY<br /><em>Phone Shop</em></h1>
+        <p class="lead">
+          Documentación completa de un ecommerce de iPhone, fundas, audio y servicio técnico:
+          13 pantallas navegables, panel administrador con estado real, API documentada,
+          equivalencia Android en Kotlin/Compose y un curso para reconstruirlo paso a paso.
+        </p>
+        <div class="doc-hero__meta">
+          <span class="docs-pill docs-pill--gold">Diseño oscuro + lima</span>
+          <span class="docs-pill">Mobile first · 390 × 844</span>
+          <span class="docs-pill">Local-first · sin backend</span>
+          <span class="docs-pill">HTML + CSS + JS ES modules</span>
+        </div>
+      </section>
+
+      <div class="grid grid--3">
+        <div class="card card--lime">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10 5.5h4M11 18.5h2"/></svg>
+          </div>
+          <h3>Probala ahora</h3>
+          <p class="small">La app corre en el navegador. El carrito, los pedidos y el panel comparten estado.</p>
+          <p><a href="../app/">Abrir la tienda →</a><br /><a href="../app/#/admin">Abrir el panel →</a></p>
+        </div>
+        <div class="card card--gold">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 3 7.5v9L12 21l9-4.5v-9z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg>
+          </div>
+          <h3>Qué incluye</h3>
+          <p class="small">Código de la app, docs por pantalla, API mock, scaffolding Android y curso.</p>
+          <p><a href="./screens.html">Ver las 13 pantallas →</a></p>
+        </div>
+        <div class="card">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16h16"/><path d="M8 17v-5M12 17V8M16 17v-8"/></svg>
+          </div>
+          <h3>Estado real</h3>
+          <p class="small">14 productos, 8 categorías, 18 pedidos de ejemplo y métricas que se recalculan.</p>
+          <p><a href="./architecture.html">Ver arquitectura →</a></p>
+        </div>
+      </div>
+
+      <h2>Empezar en 30 segundos</h2>
+      <ol class="steps">
+        <li><strong>Abrí la app.</strong> <code>bash serve.sh</code> levanta la tienda en <code>http://127.0.0.1:8787/app/</code>. También podés abrir el link de Vercel.</li>
+        <li><strong>Compra algo.</strong> Producto → color → carrito → checkout → pago → envío. La orden queda en <code>mega.v4</code>.</li>
+        <li><strong>Abrí el panel.</strong> Perfil → Panel administrador. Cambiá un estado y volvé a Mis pedidos: el cambio está ahí.</li>
+        <li><strong>Leé el porqué.</strong> Cada pantalla tiene su <code>*.md</code> en la carpeta, y acá está la vista completa.</li>
+      </ol>
+
+      <div class="callout">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <div><strong>Sin instalar nada.</strong> Tailwind, GSAP, ScrollTrigger, Three.js y las fuentes están vendorizados en <code>app/vendor/</code> y <code>app/assets/fonts/</code>. La app funciona offline después de la primera carga.</div>
+      </div>
+
+      <h2>Mapa de la documentación</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Página</th><th>Qué vas a encontrar</th><th>Cuándo usarla</th></tr></thead>
+          <tbody>
+            <tr><td><a href="./screens.html">Pantallas</a></td><td>Las 13 vistas con captura, ruta, función y estados.</td><td>Para revisar UX o moverte en el código.</td></tr>
+            <tr><td><a href="./design-system.html">Diseño</a></td><td>Tokens, tipografía, botones, cards, orden visual.</td><td>Antes de crear una pantalla nueva.</td></tr>
+            <tr><td><a href="./architecture.html">Arquitectura</a></td><td>Módulos, router, store, API, movimiento y PWA.</td><td>Para entender cómo se conecta todo.</td></tr>
+            <tr><td><a href="./diagram.html">Conexiones</a></td><td>Diagrama animado de compra, datos y admin.</td><td>Para explicarlo a alguien en 1 minuto.</td></tr>
+            <tr><td><a href="./api.html">API</a></td><td>Endpoints, payloads, errores y modo local/remoto.</td><td>Para conectar un backend real.</td></tr>
+            <tr><td><a href="./android.html">Android</a></td><td>Estructura Kotlin, Compose, permisos, Retrofit.</td><td>Para llevar la app a Android.</td></tr>
+            <tr><td><a href="./course.html">Curso</a></td><td>10 módulos en orden de mejores prácticas.</td><td>Para reconstruir el proyecto desde cero.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Qué es real y qué está simulado</h2>
+      <div class="grid grid--2">
+        <div class="card card--lime">
+          <h3>Real</h3>
+          <ul>
+            <li>Carrito, favoritos, perfil, pedidos y ajustes persistidos en <code>localStorage</code>.</li>
+            <li>Creación de órdenes, estados y seguimiento.</li>
+            <li>Panel admin: KPIs, gráfico, stock, precios, alta de productos y CSV.</li>
+            <li>Búsqueda, filtros y navegación por URL.</li>
+            <li>API mock con <code>node api/mock/server.mjs</code>.</li>
+          </ul>
+        </div>
+        <div class="card card--gold">
+          <h3>Simulado / propuesto</h3>
+          <ul>
+            <li>Pago: no se cobra dinero; se elige método y se registra.</li>
+            <li>Autenticación: no hay login; el perfil es local.</li>
+            <li>Push, biometría y cámara: solo preferencias o documentación.</li>
+            <li>Backend real: los endpoints de pago y auth están marcados como propuestos.</li>
+            <li>Android: scaffolding de referencia, no compilado en este entorno.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Ficha técnica</h2>
+      <div class="grid grid--4">
+        <div class="stat"><strong>13</strong><span>Pantallas</span></div>
+        <div class="stat"><strong>14</strong><span>Productos</span></div>
+        <div class="stat"><strong>8</strong><span>Categorías</span></div>
+        <div class="stat"><strong>10</strong><span>Endpoints</span></div>
+      </div>
+
+      <div class="callout callout--warn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 2.5 20h19z"/><path d="M12 9v5M12 17h.01"/></svg>
+        <div><strong>Datos locales, no compartidos entre dispositivos.</strong> Lo que compras en un navegador no aparece en otro. Para multiusuario hace falta el backend y autenticación de <code>api/openapi.yaml</code>.</div>
+      </div>
+
+      <footer class="docs-foot">
+        <span>MEGA TECHNOLOGY · Documentd v4 · <span data-build></span></span>
+        <span><a href="../app/">App</a> · <a href="./screens.html">Pantallas</a> · <a href="./api.html">API</a></span>
+      </footer>
+    </main>
+  </body>
+</html>

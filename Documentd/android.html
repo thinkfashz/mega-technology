@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#060606" />
+    <title>Android · Documentd MEGA TECHNOLOGY</title>
+    <link rel="stylesheet" href="./assets/docs.css" />
+    <script src="./assets/docs.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Saltar al contenido</a>
+    <div data-docs-nav></div>
+
+    <main id="main" class="docs-main">
+      <div class="docs-topbar">
+        <p class="docs-crumb">Documentd / <strong>Android</strong></p>
+        <div class="docs-actions"><span class="docs-pill docs-pill--gold">Kotlin + Compose</span><span class="docs-pill">SDK 35 · min 26</span></div>
+      </div>
+
+      <p class="docs-eyebrow">Gemelo nativo</p>
+      <h1>La misma app,<br />en Android</h1>
+      <p class="lead">
+        Scaffolding completo en Kotlin + Jetpack Compose + Material 3. Mismos tokens,
+        mismo contrato de API, mismo orden de pantallas. Está en
+        <code>android/</code>, listo para abrir en Android Studio y compilar.
+      </p>
+
+      <div class="callout callout--warn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 2.5 20h19z"/><path d="M12 9v5M12 17h.01"/></svg>
+        <div><strong>No compilado acá.</strong> En este entorno no hay Android SDK. El código está completo y ordenado; compilar requiere Android Studio Hedgehog+ o SDK 35 y JDK 17.</div>
+      </div>
+
+      <h2>Estructura</h2>
+      <pre><code>android/app/src/main/java/cl/megatechnology/shop/
+├── MegaApp.kt              # Application
+├── MainActivity.kt         # setContent + MegaTheme
+├── data/
+│   ├── ServiceLocator.kt   # DI mínimo (cambiar por Hilt en prod)
+│   ├── model/Models.kt     # @Serializable — mismos campos que el JSON
+│   ├── remote/MegaApi.kt   # Retrofit: mismo contrato que openapi.yaml
+│   ├── remote/NetworkModule.kt
+│   └── repository/ShopRepository.kt
+├── ui/
+│   ├── MegaRoot.kt         # NavigationBar + NavHost
+│   ├── ShopViewModel.kt    # StateFlow&lt;ShopUiState&gt;
+│   ├── theme/              # Color.kt · Type.kt · Theme.kt
+│   ├── components/         # ProductArt.kt · ProductCard.kt
+│   └── screens/            # StoreScreens · OrderScreens · AdminScreen
+└── util/Format.kt</code></pre>
+
+      <h2>Mapeo web → Android</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Web (app/)</th><th>Android (android/)</th></tr></thead>
+          <tbody>
+            <tr><td><code>styles/tokens.css</code></td><td><code>ui/theme/Color.kt</code> + <code>Theme.kt</code></td></tr>
+            <tr><td><code>styles/components.css</code></td><td><code>ui/components/</code></td></tr>
+            <tr><td><code>core/store.js</code></td><td><code>ShopViewModel</code> + <code>StateFlow</code></td></tr>
+            <tr><td><code>core/api.js</code></td><td><code>ShopRepository</code> + <code>MegaApi</code></td></tr>
+            <tr><td><code>core/router.js</code></td><td><code>MegaRoot.kt</code> (Navigation Compose)</td></tr>
+            <tr><td><code>ui/chrome.js</code></td><td><code>Scaffold</code> + <code>NavigationBar</code></td></tr>
+            <tr><td><code>ui/art.js</code></td><td><code>ProductArt.kt</code> (ícono + gradiente)</td></tr>
+            <tr><td><code>ui/motion.js</code></td><td><code>AnimatedVisibility</code>, <code>Crossfade</code></td></tr>
+            <tr><td><code>src/screens/*/</code></td><td><code>ui/screens/*.kt</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Dependencias</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Librería</th><th>Uso</th></tr></thead>
+          <tbody>
+            <tr><td>Compose BOM 2024.12</td><td>UI, Material 3, íconos extendidos.</td></tr>
+            <tr><td>Navigation Compose 2.8</td><td>Rutas, deep links y barra inferior.</td></tr>
+            <tr><td>Lifecycle 2.8</td><td><code>viewModelScope</code>, <code>collectAsState</code>.</td></tr>
+            <tr><td>DataStore 1.1</td><td>Preferencias (favoritos, ajustes) en producción.</td></tr>
+            <tr><td>Retrofit 2.11 + OkHttp 4.12</td><td>Cliente HTTP y logs en debug.</td></tr>
+            <tr><td>kotlinx-serialization 1.7</td><td>Parsing de los modelos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Permisos</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Permiso</th><th>Para qué</th><th>Pregunta al usuario</th></tr></thead>
+          <tbody>
+            <tr><td><code>INTERNET</code></td><td>Catálogo, pedidos, panel.</td><td>No (normal).</td></tr>
+            <tr><td><code>ACCESS_NETWORK_STATE</code></td><td>Detectar sin conexión.</td><td>No.</td></tr>
+            <tr><td><code>POST_NOTIFICATIONS</code></td><td>Estado de pedido en push.</td><td>Sí (Android 13+).</td></tr>
+            <tr><td><code>USE_BIOMETRIC</code></td><td>Preferencia de biometría.</td><td>Sí, al activarla.</td></tr>
+            <tr><td><code>VIBRATE</code></td><td>Feedback táctil.</td><td>No.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <div><strong>Nada más.</strong> No hay cámara, ni fotos, ni ubicación: el arte es vectorial y la dirección se escribe a mano. Si más adelante se agrega QR o fotos de reparación, esos permisos se piden en el momento de uso, con explicación.</div>
+      </div>
+
+      <h2>Recursos</h2>
+      <div class="grid grid--3">
+        <div class="card card--lime">
+          <h3>Icono</h3>
+          <p class="small">Adaptive icon vectorial con el monograma M dorado, mismo trazo que la web. Sin PNGs pesados.</p>
+        </div>
+        <div class="card card--gold">
+          <h3>Tipografía</h3>
+          <p class="small">Inter y Cinzel opcionales: se copian a <code>res/font/</code> y se cambian en <code>Type.kt</code>.</p>
+        </div>
+        <div class="card">
+          <h3>Color</h3>
+          <p class="small">El tema fuerza barras oscura: la marca no tiene variante clara.</p>
+        </div>
+      </div>
+
+      <h2>Conectar con la API</h2>
+      <pre><code><span class="c"># 1. Levantar el mock</span>
+node api/mock/server.mjs
+
+<span class="c"># 2. En app/build.gradle.kts</span>
+buildConfigField("String", "API_BASE_URL", <span class="s">"\"http://10.0.2.2:8788/api/\""</span>)
+<span class="c">#    10.0.2.2 = host visto desde el emulador</span>
+
+<span class="c"># 3. Compilar</span>
+cd android &amp;&amp; ./gradlew :app:assembleDebug</code></pre>
+
+      <h2>Checklist de calidad</h2>
+      <ol class="steps">
+        <li><strong>Tokens primero.</strong> Ningún hex literal en un composable.</li>
+        <li><strong>Una fuente de verdad.</strong> La API se llama desde el repositorio, nunca desde la pantalla.</li>
+        <li><strong>Estado observable.</strong> Un <code>StateFlow</code> por vista de datos, sin estado mutable en composables.</li>
+        <li><strong>Accesibilidad.</strong> <code>contentDescription</code> en íconos, área táctil ≥ 48 dp, contraste AA.</li>
+        <li><strong>Sin crashes.</strong> Validar listas vacías, errores de red y stock cero.</li>
+        <li><strong>Deep links.</strong> <code>mega://product/p1</code>, <code>mega://orders</code>, <code>mega://admin</code>.</li>
+      </ol>
+
+      <h2>Qué falta para producción</h2>
+      <ul>
+        <li>Room como caché offline y <code>WorkManager</code> para sincronizar.</li>
+        <li>Hilt en lugar del <code>ServiceLocator</code>.</li>
+        <li><code>BiometricPrompt</code> real para la preferencia de biometría.</li>
+        <li>FCM para el push del estado de pedidos.</li>
+        <li>Tests unitarios del ViewModel y de la validación de checkout.</li>
+        <li>Screenshot tests de Compose para regresión visual.</li>
+      </ul>
+
+      <footer class="docs-foot">
+        <span>MEGA TECHNOLOGY · Documentd v4</span>
+        <span><a href="./screens.html">Pantallas</a> · <a href="./course.html">Curso</a></span>
+      </footer>
+    </main>
+  </body>
+</html>

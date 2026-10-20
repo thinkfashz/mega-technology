@@ -1,0 +1,427 @@
+/* ============================================================
+   MEGA TECHNOLOGY · base.css
+   Reset, shell de la app, tipografía y utilidades mínimas.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: #060606;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--m-font-ui);
+  font-size: var(--m-fs-body);
+  line-height: 1.45;
+  color: var(--m-text);
+  background:
+    radial-gradient(80% 50% at 50% -10%, rgba(211, 169, 79, 0.1), transparent 60%),
+    radial-gradient(70% 50% at 90% 110%, rgba(200, 245, 66, 0.07), transparent 60%),
+    #050505;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--m-lime);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--m-lime);
+  color: var(--m-lime-ink);
+}
+
+/* ---------- Shell ---------- */
+
+.app-shell {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: 100%;
+  max-width: var(--m-app-max);
+  height: 100dvh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--m-bg);
+  isolation: isolate;
+}
+
+.app-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+  mix-blend-mode: overlay;
+}
+
+.app-header-slot {
+  position: relative;
+  z-index: 40;
+  padding: calc(10px + var(--m-safe-t)) var(--m-gutter) 8px;
+}
+
+.view {
+  position: relative;
+  z-index: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(var(--m-sp-7) + var(--m-nav-h) + var(--m-safe-b));
+  scroll-behavior: smooth;
+}
+
+.view::-webkit-scrollbar {
+  display: none;
+}
+
+.app-nav-slot {
+  position: relative;
+  z-index: 40;
+  padding: 0 var(--m-gutter) calc(10px + var(--m-safe-b));
+}
+
+/* ---------- Pantalla ancha: marco de teléfono ---------- */
+
+@media (min-width: 760px) {
+  body {
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+  .app-shell {
+    height: min(920px, calc(100dvh - 40px));
+    border: 1px solid #2b2b2b;
+    border-radius: 44px;
+    box-shadow:
+      0 0 0 10px #111,
+      0 0 0 11px #333,
+      0 50px 120px -30px rgba(0, 0, 0, 0.9),
+      0 0 90px -40px rgba(200, 245, 66, 0.25);
+  }
+  .app-header-slot {
+    padding-top: 20px;
+  }
+}
+
+/* ---------- Tipografía ---------- */
+
+.m-display {
+  font-size: var(--m-fs-display);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.m-h1 {
+  font-size: var(--m-fs-h1);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.m-h2 {
+  font-size: var(--m-fs-h2);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.m-h3 {
+  font-size: var(--m-fs-body);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.m-eyebrow {
+  font-size: var(--m-fs-2xs);
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--m-gold);
+}
+
+.m-muted {
+  color: var(--m-text-2);
+}
+
+.m-dim {
+  color: var(--m-text-3);
+}
+
+.m-lime {
+  color: var(--m-lime);
+}
+
+.m-gold {
+  color: var(--m-gold);
+}
+
+.m-price {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--m-lime);
+  font-variant-numeric: tabular-nums;
+}
+
+.m-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.m-strike {
+  color: var(--m-text-3);
+  text-decoration: line-through;
+  font-weight: 600;
+}
+
+/* Título de sección con subrayado lima (firma de la referencia) */
+.m-section-title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 8px;
+  font-size: 1.18rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.m-section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 44%;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--m-grad-lime);
+}
+
+.m-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.m-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--m-fs-sm);
+  font-weight: 700;
+  color: var(--m-gold);
+}
+
+/* ---------- Utilidades ---------- */
+
+.row {
+  display: flex;
+  align-items: center;
+}
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gap-1 {
+  gap: 4px;
+}
+.gap-2 {
+  gap: 8px;
+}
+.gap-3 {
+  gap: 12px;
+}
+.gap-4 {
+  gap: 16px;
+}
+.stack {
+  display: grid;
+  gap: 14px;
+}
+.stack-6 {
+  display: grid;
+  gap: 24px;
+}
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.screen-pad {
+  padding: 0 var(--m-gutter);
+}
+.mt-2 {
+  margin-top: 8px;
+}
+.mt-3 {
+  margin-top: 12px;
+}
+.mt-4 {
+  margin-top: 16px;
+}
+.mt-6 {
+  margin-top: 24px;
+}
+.mb-2 {
+  margin-bottom: 8px;
+}
+.mb-4 {
+  margin-bottom: 16px;
+}
+.text-sm {
+  font-size: var(--m-fs-sm);
+}
+.text-xs {
+  font-size: var(--m-fs-xs);
+}
+.text-center {
+  text-align: center;
+}
+.w-full {
+  width: 100%;
+}
+.hide {
+  display: none !important;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Reveals (se activan solo con JS) ---------- */
+
+/*
+ * Solo se oculta cuando GSAP está confirmado (clase .gsap-ready). Si la librería
+ * no carga o tarda, el contenido queda visible: nunca una pantalla en blanco.
+ */
+.gsap-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  will-change: opacity, transform;
+}
+.gsap-ready [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.6s var(--m-ease),
+    transform 0.6s var(--m-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .gsap-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Accesibilidad ---------- */
+
+.skip-link {
+  position: fixed;
+  top: -60px;
+  left: 12px;
+  z-index: 999;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--m-lime);
+  color: var(--m-lime-ink);
+  font-weight: 700;
+  transition: top 0.2s var(--m-ease);
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+.boot-error {
+  position: fixed;
+  inset: auto 12px 12px 12px;
+  z-index: 9999;
+  padding: 12px 14px;
+  border: 1px solid var(--m-err);
+  border-radius: 12px;
+  background: #2a0d0d;
+  color: #ffd9d9;
+  font-size: 12px;
+}

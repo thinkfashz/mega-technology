@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#060606" />
+    <title>API · Documentd MEGA TECHNOLOGY</title>
+    <link rel="stylesheet" href="./assets/docs.css" />
+    <script src="./assets/docs.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Saltar al contenido</a>
+    <div data-docs-nav></div>
+
+    <main id="main" class="docs-main">
+      <div class="docs-topbar">
+        <p class="docs-crumb">Documentd / <strong>API</strong></p>
+        <div class="docs-actions"><span class="docs-pill docs-pill--live">11 implementados</span><span class="docs-pill docs-pill--gold">4 propuestos</span></div>
+      </div>
+
+      <p class="docs-eyebrow">Contrato REST</p>
+      <h1>La UI cambia,<br />el contrato no</h1>
+      <p class="lead">
+        Todas las pantallas hablan con <code>api.js</code>. En modo local resuelve contra
+        el store; en remoto hace HTTP contra este contrato. Cambiar de uno a otro no
+        requiere tocar una línea de interfaz.
+      </p>
+
+      <pre><code><span class="c"># Local (por defecto): sin servidor, persistencia en el navegador</span>
+http://127.0.0.1:8787/app/#/home
+
+<span class="c"># Remoto: API mock o backend real</span>
+http://127.0.0.1:8787/app/?api=remote&amp;base=http://127.0.0.1:8788/api#/home
+</code></pre>
+
+      <div class="callout">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>
+        <div><strong>Un solo adaptador.</strong> <code>createApi(store)</code> expone <code>products</code>, <code>createOrder</code>, <code>updateProduct</code>, <code>adminStats</code>… Cada método decide local o HTTP. Las pantallas no saben en qué modo están (salvo Perfil, que lo muestra).</div>
+      </div>
+
+      <h2>Arrancar el mock</h2>
+      <pre><code>node api/mock/server.mjs
+<span class="c"># MEGA API mock · http://127.0.0.1:8788/api</span>
+<span class="c"># Salud: http://127.0.0.1:8788/api/health</span>
+
+curl -s http://127.0.0.1:8788/api/products | head -c 300
+curl -s "http://127.0.0.1:8788/api/admin/stats?days=7"</code></pre>
+      <p class="small">Sin dependencias. Datos en memoria: al reiniciar se restauran los seeds. CORS abierto solo para desarrollo.</p>
+
+      <h2>Endpoints implementados</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Método</th><th>Ruta</th><th>Qué hace</th><th>Doc</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tag tag--get">GET</span></td><td><code>/api/products</code></td><td>Lista con búsqueda, categoría, color, orden y precio máximo.</td><td><a href="../api/endpoints/catalog/products.md">products.md</a></td></tr>
+            <tr><td><span class="tag tag--get">GET</span></td><td><code>/api/products/{id}</code></td><td>Detalle por id o slug.</td><td><a href="../api/endpoints/catalog/products.md">products.md</a></td></tr>
+            <tr><td><span class="tag tag--get">GET</span></td><td><code>/api/categories</code></td><td>Categorías con conteo.</td><td><a href="../api/endpoints/catalog/categories.md">categories.md</a></td></tr>
+            <tr><td><span class="tag tag--get">GET</span></td><td><code>/api/orders</code></td><td>Historial filtrable por estado.</td><td><a href="../api/endpoints/orders/list.md">list.md</a></td></tr>
+            <tr><td><span class="tag tag--get">GET</span></td><td><code>/api/orders/{id}</code></td><td>Detalle de una orden.</td><td><a href="../api/endpoints/orders/list.md">list.md</a></td></tr>
+            <tr><td><span class="tag tag--post">POST</span></td><td><code>/api/orders</code></td><td>Crea la orden y descuenta stock.</td><td><a href="../api/endpoints/orders/create.md">create.md</a></td></tr>
+            <tr><td><span class="tag tag--patch">PATCH</span></td><td><code>/api/orders/{id}</code></td><td>Cambia el estado y el timeline.</td><td><a href="../api/endpoints/orders/update-status.md">update-status.md</a></td></tr>
+            <tr><td><span class="tag tag--post">POST</span></td><td><code>/api/service-requests</code></td><td>Solicitud de diagnóstico.</td><td><a href="../api/endpoints/service/create.md">create.md</a></td></tr>
+            <tr><td><span class="tag tag--get">GET</span></td><td><code>/api/admin/stats</code></td><td>KPIs, serie diaria y top productos.</td><td><a href="../api/endpoints/admin/stats.md">stats.md</a></td></tr>
+            <tr><td><span class="tag tag--post">POST</span></td><td><code>/api/admin/products</code></td><td>Alta de producto.</td><td><a href="../api/endpoints/admin/products.md">products.md</a></td></tr>
+            <tr><td><span class="tag tag--patch">PATCH</span></td><td><code>/api/admin/products/{id}</code></td><td>Precio, stock, nombre, descripción.</td><td><a href="../api/endpoints/admin/products.md">products.md</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Endpoints propuestos</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Método</th><th>Ruta</th><th>Para qué</th><th>Doc</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tag tag--post">POST</span></td><td><code>/api/payments/intent</code></td><td>Intención de pago con el proveedor.</td><td><a href="../api/endpoints/payments/intent.md">intent.md</a></td></tr>
+            <tr><td><span class="tag tag--post">POST</span></td><td><code>/api/payments/webhook</code></td><td>Confirmación firmada del pago.</td><td><a href="../api/endpoints/payments/webhook.md">webhook.md</a></td></tr>
+            <tr><td><span class="tag tag--get">GET</span></td><td><code>/api/shipping/quote</code></td><td>Costo y plazo por zona.</td><td><a href="../api/endpoints/shipping/quote.md">quote.md</a></td></tr>
+            <tr><td><span class="tag tag--post">POST</span></td><td><code>/api/auth/session</code></td><td>Login y rol (cliente/admin).</td><td><a href="../api/endpoints/auth/session.md">session.md</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">El mock responde <code>501 NOT_IMPLEMENTED</code> en los propuestos, para que nadie confunda documentación con implementación.</p>
+
+      <h2>Crear una orden, completo</h2>
+      <pre><code><span class="k">POST</span> /api/orders
+Content-Type: application/json
+
+{
+  <span class="s">"customer"</span>: {
+    <span class="s">"name"</span>: <span class="s">"Camila Rojas"</span>,
+    <span class="s">"phone"</span>: <span class="s">"+56 9 8842 1177"</span>,
+    <span class="s">"address"</span>: <span class="s">"Av. Providencia 1234"</span>,
+    <span class="s">"city"</span>: <span class="s">"Providencia"</span>
+  },
+  <span class="s">"items"</span>: [
+    { <span class="s">"productId"</span>: <span class="s">"p1"</span>, <span class="s">"colorId"</span>: <span class="s">"lime"</span>, <span class="s">"qty"</span>: 2 }
+  ],
+  <span class="s">"payment"</span>: <span class="s">"card"</span>,
+  <span class="s">"delivery"</span>: <span class="s">"express"</span>
+}</code></pre>
+      <p>El servidor recalcula precio, envío y total. Si el stock no alcanza:</p>
+      <pre><code><span class="k">HTTP 409</span>
+{
+  <span class="s">"code"</span>: <span class="s">"STOCK_INSUFFICIENT"</span>,
+  <span class="s">"message"</span>: <span class="s">"No hay stock suficiente de Funda Silicona iPhone 15 Pro"</span>,
+  <span class="s">"details"</span>: { <span class="s">"productId"</span>: <span class="s">"p1"</span>, <span class="s">"available"</span>: 1, <span class="s">"requested"</span>: 2 }
+}</code></pre>
+
+      <h2>Modo remoto en la app</h2>
+      <p>
+        El parámetro <code>base</code> permite apuntar a cualquier backend. La app usa
+        <code>?api=remote&amp;base=…</code> y recuerda el modo en <code>localStorage["mega.api"]</code>.
+        Para volver a local, <code>?api=local</code>.
+      </p>
+      <div class="callout callout--warn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 2.5 20h19z"/><path d="M12 9v5M12 17h.01"/></svg>
+        <div><strong>El mock no persiste.</strong> Cada reinicio vuelve a los seeds, y las órdenes creadas se pierden. Para pruebas de persistencia usá el modo local (<code>localStorage</code>).</div>
+      </div>
+
+      <h2>Errores y validación</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>HTTP</th><th>code</th><th>Cuándo</th><th>Qué hacer en la UI</th></tr></thead>
+          <tbody>
+            <tr><td>400</td><td><code>INVALID_JSON</code></td><td>Body mal formado.</td><td>Error genérico; no reintentar.</td></tr>
+            <tr><td>401</td><td><code>UNAUTHORIZED</code></td><td>Sin sesión.</td><td>Redirigir a login.</td></tr>
+            <tr><td>404</td><td><code>NOT_FOUND</code></td><td>Producto/pedido inexistente.</td><td>Estado vacío con volver.</td></tr>
+            <tr><td>409</td><td><code>STOCK_INSUFFICIENT</code></td><td>No alcanza stock.</td><td>Marcar la línea y ofrecer ajustar cantidad.</td></tr>
+            <tr><td>409</td><td><code>CONFLICT</code></td><td>Transición de estado inválida.</td><td>Refrescar el pedido.</td></tr>
+            <tr><td>422</td><td><code>VALIDATION</code></td><td>Campos inválidos.</td><td>Mostrar el mensaje junto al campo.</td></tr>
+            <tr><td>429</td><td><code>RATE_LIMITED</code></td><td>Demasiados intentos.</td><td>Esperar y ofrecer reintento.</td></tr>
+            <tr><td>500</td><td><code>INTERNAL</code></td><td>Falla del servidor.</td><td>Toast + reintento manual.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Checklist para producción</h2>
+      <ol class="steps">
+        <li><strong>Autenticación y roles.</strong> Proteger todo <code>/admin/*</code> y filtrar órdenes por usuario.</li>
+        <li><strong>Transacciones.</strong> Crear orden + descontar stock en una sola transacción con bloqueo.</li>
+        <li><strong>Idempotencia.</strong> <code>Idempotency-Key</code> en <code>POST /orders</code> y eventos de pago.</li>
+        <li><strong>Pagos.</strong> Webhook firmado; nunca marcar pagado desde el cliente.</li>
+        <li><strong>Validación.</strong> Esquema (Zod/Ajv) en cada entrada; límites de tamaño.</li>
+        <li><strong>Observabilidad.</strong> Request ID, logs estructurados, métricas de latencia y errores.</li>
+        <li><strong>Seguridad.</strong> Rate limiting, CORS restringido, headers, secretos fuera del repo.</li>
+        <li><strong>Backups.</strong> Base de datos con restauración probada, no solo configurada.</li>
+      </ol>
+
+      <h2>Contrato OpenAPI</h2>
+      <p>
+        <a href="../api/openapi.yaml">api/openapi.yaml</a> incluye esquemas, parámetros,
+        respuestas y los endpoints propuestos marcados con <code>x-status: proposed</code>.
+        Se puede abrir en Swagger Editor o usar para generar clientes Kotlin/Swift.
+      </p>
+
+      <footer class="docs-foot">
+        <span>MEGA TECHNOLOGY · Documentd v4</span>
+        <span><a href="./architecture.html">Arquitectura</a> · <a href="./android.html">Android</a></span>
+      </footer>
+    </main>
+  </body>
+</html>

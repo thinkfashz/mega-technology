@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="sharedpref" path="." />
+        <include domain="database" path="mega_tech.db" />
+        <exclude domain="sharedpref" path="mega_secure.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="sharedpref" path="." />
+        <include domain="database" path="mega_tech.db" />
+    </device-transfer>
+</data-extraction-rules>

@@ -1,0 +1,344 @@
+/* admin.css — Panel administrador */
+
+.admin {
+  padding-top: 8px;
+}
+
+.admin__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 var(--m-gutter);
+}
+
+.admin__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--m-text-3);
+}
+
+.live-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--m-lime);
+  box-shadow: 0 0 0 3px rgba(200, 245, 66, 0.15);
+}
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 99px;
+  border: 1px solid var(--m-lime);
+  animation: live-ring 1.8s ease-out infinite;
+}
+@keyframes live-ring {
+  from {
+    transform: scale(0.6);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.admin__title {
+  margin-top: 3px;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.admin__store {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #2a2a2a;
+  border-radius: 11px;
+  background: var(--m-surface-2);
+  color: var(--m-gold);
+}
+
+.admin__tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px var(--m-gutter) 14px;
+}
+.admin__period button {
+  padding: 6px 9px;
+  font-size: 0.62rem;
+}
+
+.admin__actions {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.admin__actions::-webkit-scrollbar {
+  display: none;
+}
+.admin__actions .btn {
+  flex: none;
+}
+
+.admin .kpi-grid {
+  margin-bottom: 12px;
+}
+
+.kpi-grid .kpi:nth-child(1) .kpi__value {
+  color: var(--m-lime);
+}
+.kpi-grid .kpi:nth-child(4) .kpi__value {
+  color: var(--m-gold);
+}
+
+.chart-card {
+  border-radius: var(--m-r-lg);
+}
+.chart-card__label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--m-text-3);
+}
+.chart-card__value {
+  margin-top: 3px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--m-lime);
+  font-variant-numeric: tabular-nums;
+}
+
+.sales-chart__wrap {
+  margin-top: 8px;
+}
+.sales-chart {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.sales-chart__grid {
+  stroke: #242424;
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+.sales-chart__line {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: sales-draw 1.15s var(--m-ease) 0.1s forwards;
+}
+@keyframes sales-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.sales-chart__dot {
+  fill: #0d0d0d;
+  stroke: var(--m-lime);
+  stroke-width: 1.6;
+}
+.sales-chart__dot.is-last {
+  fill: var(--m-lime);
+  stroke: #0d0d0d;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px rgba(200, 245, 66, 0.7));
+}
+.sales-chart__x {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 2px 0;
+  font-size: 0.54rem;
+  font-weight: 600;
+  color: var(--m-text-3);
+}
+.sales-chart__x .is-last {
+  color: var(--m-lime);
+  font-weight: 800;
+}
+
+.admin__section {
+  margin-top: 24px;
+}
+.admin__section .m-section-head {
+  margin-bottom: 10px;
+}
+.admin__section .m-section-title {
+  font-size: 1rem;
+}
+
+.admin-order__right {
+  display: grid;
+  justify-items: end;
+  gap: 3px;
+}
+.admin-order__statusline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.admin__filters {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.admin__filters .segmented {
+  width: 100%;
+}
+.admin__filters > .btn {
+  align-self: flex-start;
+}
+.admin__sum {
+  align-self: flex-end;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--m-lime);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.admin__foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 18px;
+  font-size: 0.58rem;
+  text-align: center;
+  color: var(--m-text-4);
+}
+.admin__foot svg {
+  flex: none;
+}
+
+.status--pending + .admin-select,
+.admin-order__statusline .admin-select {
+  max-width: 118px;
+}
+
+.admin-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 4px 20px 4px 8px;
+  border: 1px solid #303030;
+  border-radius: 8px;
+  background:
+    linear-gradient(45deg, transparent 50%, #8d8d88 50%) calc(100% - 11px) 55% / 4px 4px no-repeat,
+    linear-gradient(135deg, #8d8d88 50%, transparent 50%) calc(100% - 7px) 55% / 4px 4px no-repeat,
+    #1b1b1b;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--m-text);
+}
+
+.admin-order--edit {
+  align-items: flex-start;
+  padding: 11px;
+}
+
+.admin-list--products {
+  gap: 8px;
+}
+
+.admin-product {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px;
+  border: 1px solid #222;
+  border-radius: 13px;
+  background: var(--m-surface);
+}
+.admin-product.is-low {
+  border-color: rgba(255, 176, 32, 0.28);
+}
+.admin-product__art {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 50px;
+  border-radius: 9px;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+.admin-product__art .product-art {
+  width: 86%;
+}
+.admin-product__name {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.admin-product__meta {
+  display: block;
+  margin: 1px 0 4px;
+  font-size: 0.55rem;
+  color: var(--m-text-3);
+}
+.admin-product__right {
+  display: grid;
+  justify-items: end;
+  gap: 1px;
+}
+.admin-product__price {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--m-lime);
+  font-variant-numeric: tabular-nums;
+}
+.admin-product__stock {
+  font-size: 0.55rem;
+  color: var(--m-text-3);
+}
+.admin-product__controls {
+  display: flex;
+  gap: 3px;
+  margin-top: 3px;
+}
+.admin-product__controls button {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #303030;
+  border-radius: 7px;
+  background: #1a1a1a;
+  color: var(--m-text-2);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.admin-product__controls button:hover {
+  color: var(--m-lime);
+  border-color: var(--m-lime-line);
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}

@@ -1,0 +1,242 @@
+/* product.css — Detalle de producto */
+
+.product {
+  padding-top: 0;
+}
+
+.product__gallery {
+  position: relative;
+  padding: 4px 0 0;
+}
+
+.product__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 312px;
+  margin: 0 8px;
+  overflow: hidden;
+}
+
+.product__halo {
+  position: absolute;
+  inset: 12% 18% 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 245, 66, 0.16), transparent 62%);
+  filter: blur(26px);
+}
+
+.product__art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  perspective: 900px;
+}
+.product__art .product-art {
+  width: 58%;
+  max-width: 230px;
+  height: auto;
+  filter: drop-shadow(0 30px 34px rgba(0, 0, 0, 0.65));
+  transition: transform 0.5s var(--m-ease);
+}
+.product__art.is-swapping .product-art {
+  animation: art-swap 0.45s var(--m-ease);
+}
+@keyframes art-swap {
+  from {
+    opacity: 0.25;
+    transform: scale(0.94) translateY(6px);
+  }
+}
+
+.product__badge {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+}
+
+.product__fav {
+  top: 8px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+}
+
+.product__dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 0 14px;
+}
+.product__dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border-radius: 99px;
+  background: #414141;
+  transition:
+    width var(--m-dur-2) var(--m-ease),
+    background var(--m-dur-2) var(--m-ease);
+}
+.product__dot.is-active {
+  width: 18px;
+  background: var(--m-lime);
+}
+
+.product__panel {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  margin: 0 8px;
+  padding: 20px var(--m-gutter) 24px;
+  border: 1px solid #1e1e1e;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #111111, #0b0b0b 60%);
+  box-shadow: 0 -20px 40px -30px #000;
+}
+
+.product__headline {
+  display: grid;
+  gap: 8px;
+}
+.product__name {
+  font-size: 1.34rem;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+.product__price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.product__price {
+  font-size: 1.9rem;
+  line-height: 1;
+}
+.product__save {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--m-gold);
+}
+.product__save s {
+  font-weight: 500;
+  color: var(--m-text-3);
+}
+
+.product__block {
+  display: grid;
+  gap: 7px;
+}
+.product__label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--m-text);
+}
+.product__label strong {
+  font-weight: 600;
+  color: var(--m-text-2);
+}
+.product__stock {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--m-lime);
+}
+.product__stock.is-low {
+  color: var(--m-warn);
+}
+.product__description {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #c9c9c3;
+}
+.product__features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 10px;
+  margin-top: 4px;
+}
+.product__features li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+  color: var(--m-text-2);
+}
+.product__features svg {
+  flex: none;
+  color: var(--m-lime);
+}
+
+.product__qty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 2px;
+}
+.product__qty .product__label {
+  font-size: 0.95rem;
+}
+
+.product__cta {
+  font-size: 1.02rem;
+  min-height: 58px;
+}
+
+.product__actions {
+  display: flex;
+  gap: 8px;
+}
+.product__actions .btn {
+  min-height: 44px;
+}
+
+.product__shipping {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  border: 1px solid #242424;
+  border-radius: 12px;
+  background: #0e0e0e;
+  font-size: 0.66rem;
+  color: var(--m-text-2);
+}
+.product__shipping span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 99px;
+  background: rgba(200, 245, 66, 0.08);
+  color: var(--m-lime);
+}
+.product__shipping strong {
+  color: var(--m-text);
+}
+
+.product__related {
+  margin-top: 26px;
+  padding: 0 var(--m-gutter);
+}
+
+@media (max-width: 360px) {
+  .product__stage {
+    height: 280px;
+  }
+  .product__art .product-art {
+    width: 54%;
+  }
+  .product__features {
+    grid-template-columns: 1fr;
+  }
+}

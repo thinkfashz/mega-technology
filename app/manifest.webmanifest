@@ -1,0 +1,24 @@
+{
+  "name": "MEGA TECHNOLOGY · Phone Shop",
+  "short_name": "MEGA TECH",
+  "description": "Ecommerce móvil de iPhone, fundas, audio y servicio técnico. Versión 4.",
+  "lang": "es-CL",
+  "dir": "ltr",
+  "start_url": "./index.html#/home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#060606",
+  "theme_color": "#060606",
+  "categories": ["shopping", "business"],
+  "icons": [
+    { "src": "./assets/brand/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./assets/brand/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./assets/brand/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "shortcuts": [
+    { "name": "Catálogo", "url": "./index.html#/catalog" },
+    { "name": "Mi carrito", "url": "./index.html#/cart" },
+    { "name": "Panel", "url": "./index.html#/admin" }
+  ]
+}

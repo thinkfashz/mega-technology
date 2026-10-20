@@ -1,0 +1,222 @@
+/* catalog.css — Catálogo y filtros */
+
+.catalog {
+  padding-top: 8px;
+}
+
+.catalog__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 var(--m-gutter);
+}
+
+.catalog__title {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.catalog__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 38px;
+  padding: 0 8px;
+  border-radius: 10px;
+  color: var(--m-text-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: color var(--m-dur-1) var(--m-ease);
+}
+.catalog__filter:hover {
+  color: var(--m-text);
+}
+.catalog__filter svg:last-child {
+  color: var(--m-lime);
+}
+
+.catalog__searchline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 12px var(--m-gutter) 0;
+  padding: 8px 12px;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  background: var(--m-surface);
+}
+.catalog__query {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--m-text-2);
+}
+.catalog__clear {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--m-lime);
+}
+
+.catalog__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 16px var(--m-gutter) 14px;
+  min-height: 34px;
+}
+.catalog__meta .active-filter {
+  margin-left: 0;
+}
+.catalog__micro {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--m-text-3);
+}
+.catalog__count {
+  margin-left: auto;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--m-text-2);
+  white-space: nowrap;
+}
+
+.catalog__grid {
+  padding: 0 var(--m-gutter);
+}
+
+.catalog__foot {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 0 var(--m-gutter);
+}
+.catalog__showing {
+  font-size: 0.68rem;
+  color: var(--m-text-2);
+  text-align: center;
+}
+
+.catalog__empty {
+  margin: 20px var(--m-gutter) 0;
+}
+
+/* ---------- Sheet de filtros ---------- */
+
+.filter-block {
+  display: grid;
+  gap: 9px;
+}
+.filter-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--m-text-3);
+}
+.chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.filter-colors {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+.filter-color {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 10px;
+  border: 1px solid #2c2c2c;
+  border-radius: 11px;
+  background: var(--m-surface-2);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--m-text-2);
+  text-align: left;
+  transition: border-color var(--m-dur-1) var(--m-ease);
+}
+.filter-color.is-active {
+  border-color: var(--m-lime);
+  color: var(--m-text);
+}
+.filter-color__dot {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 99px;
+  background: var(--c, #333);
+  box-shadow: inset 0 0 0 2px #121212;
+}
+.filter-color__dot--any {
+  display: grid;
+  place-items: center;
+  background: #202020;
+  color: #8d8d88;
+}
+.filter-color__dot--any svg {
+  width: 9px;
+  height: 9px;
+}
+
+.filter-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--m-lime-soft);
+  font-size: 0.68rem;
+  color: var(--m-lime);
+}
+.filter-actions {
+  padding-top: 4px;
+}
+
+.cat-picker {
+  display: grid;
+  gap: 6px;
+}
+.cat-picker__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid #242424;
+  border-radius: 13px;
+  background: var(--m-surface-2);
+}
+.cat-picker__icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(200, 245, 66, 0.08);
+  color: var(--m-lime);
+}
+.cat-picker__name {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.cat-picker__count {
+  display: block;
+  font-size: 0.62rem;
+  color: var(--m-gold);
+}

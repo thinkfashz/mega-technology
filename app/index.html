@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5" />
+    <meta name="theme-color" content="#060606" />
+    <meta name="description" content="MEGA TECHNOLOGY · Phone Shop. Ecommerce móvil de iPhone, fundas, audio y servicio técnico." />
+    <title>MEGA TECHNOLOGY · Phone Shop</title>
+
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/brand/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./assets/brand/icon-192.svg" />
+
+    <link rel="stylesheet" href="./styles/tokens.css" />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/components.css" />
+
+    <!-- Una hoja por pantalla: se localiza y se mueve con la carpeta. -->
+    <link rel="stylesheet" href="./src/screens/home/home.css" />
+    <link rel="stylesheet" href="./src/screens/catalog/catalog.css" />
+    <link rel="stylesheet" href="./src/screens/product/product.css" />
+    <link rel="stylesheet" href="./src/screens/checkout/checkout.css" />
+    <link rel="stylesheet" href="./src/screens/payment/payment.css" />
+    <link rel="stylesheet" href="./src/screens/shipping/shipping.css" />
+    <link rel="stylesheet" href="./src/screens/service/service.css" />
+    <link rel="stylesheet" href="./src/screens/cart/cart.css" />
+    <link rel="stylesheet" href="./src/screens/favorites/favorites.css" />
+    <link rel="stylesheet" href="./src/screens/profile/profile.css" />
+    <link rel="stylesheet" href="./src/screens/search/search.css" />
+    <link rel="stylesheet" href="./src/screens/orders/orders.css" />
+    <link rel="stylesheet" href="./src/screens/admin/admin.css" />
+
+    <script src="./vendor/tailwind.js"></script>
+    <script>
+      // Tailwind (Play CDN vendorizado) comparte la paleta de tokens.css.
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              app: "#060606",
+              surface: "#111111",
+              surface2: "#161616",
+              line: "#262626",
+              ink: "#f7f7f3",
+              muted: "#ababa6",
+              lime: "#c8f542",
+              gold: "#d3a94f",
+            },
+            fontFamily: {
+              ui: ["Inter", "system-ui", "sans-serif"],
+              brand: ["Cinzel", "serif"],
+            },
+            borderRadius: { xl2: "24px", xl3: "30px" },
+          },
+        },
+      };
+    </script>
+    <script src="./vendor/gsap.min.js" defer></script>
+    <script src="./vendor/ScrollTrigger.min.js" defer></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#view">Saltar al contenido</a>
+
+    <div id="app" class="app-shell">
+      <div class="app-grain" aria-hidden="true"></div>
+
+      <header id="app-header" class="app-header-slot"></header>
+
+      <main id="view" class="view" tabindex="-1" aria-live="polite"></main>
+
+      <nav id="app-nav" class="app-nav-slot" aria-label="Navegación principal"></nav>
+
+      <div id="overlay-root" class="overlay-root"></div>
+      <div id="toast-root" class="toast-root" role="status" aria-live="polite"></div>
+    </div>
+
+    <div id="boot-error" class="boot-error" hidden></div>
+
+    <script type="module" src="./src/main.js"></script>
+    <script>
+      window.addEventListener("error", (e) => {
+        const box = document.getElementById("boot-error");
+        if (!box) return;
+        box.hidden = false;
+        box.textContent = "Error de arranque: " + (e.message || "desconocido");
+      });
+    </script>
+  </body>
+</html>

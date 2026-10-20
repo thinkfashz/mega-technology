@@ -1,0 +1,57 @@
+/* payment.css — Métodos de pago */
+
+.payment {
+  padding-top: 8px;
+}
+
+.payment .choice-list {
+  margin-top: 20px;
+}
+
+.payment .summary {
+  margin: 0 var(--m-gutter);
+}
+
+.payment__section {
+  margin: 22px var(--m-gutter) 9px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.payment__cta {
+  margin: 14px var(--m-gutter) 0;
+  width: calc(100% - var(--m-gutter) * 2);
+}
+
+.payment__secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--m-text-2);
+}
+.payment__secure svg {
+  color: var(--m-lime);
+}
+
+.payment__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 14px var(--m-gutter) 0;
+  padding: 11px 12px;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  background: #0e0e0e;
+  font-size: 0.64rem;
+  line-height: 1.45;
+  color: var(--m-text-3);
+}
+.payment__note svg {
+  flex: none;
+  color: var(--m-gold);
+}

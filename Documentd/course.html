@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#060606" />
+    <title>Curso · Documentd MEGA TECHNOLOGY</title>
+    <link rel="stylesheet" href="./assets/docs.css" />
+    <script src="./assets/docs.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Saltar al contenido</a>
+    <div data-docs-nav></div>
+
+    <main id="main" class="docs-main">
+      <div class="docs-topbar">
+        <p class="docs-crumb">Documentd / <strong>Curso</strong></p>
+        <div class="docs-actions"><span class="docs-pill docs-pill--live">10 módulos</span><span class="docs-pill">~12 horas</span></div>
+      </div>
+
+      <p class="docs-eyebrow">Aprender construyendo</p>
+      <h1>De cero a<br />app publicada</h1>
+      <p class="lead">
+        Diez módulos en orden de mejores prácticas. Cada uno termina con algo que se
+        puede ver en el navegador, con su checklist. La idea no es copiar el código:
+        es entender <em>por qué</em> está en ese orden.
+      </p>
+
+      <div class="callout">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg>
+        <div><strong>Regla de oro del curso.</strong> Ninguna pantalla escribe estado suelto. Todo pasa por el store, y el store es el único que persiste. Si rompes eso, aparecen bugs del tipo “el carrito dice 3 y el resumen 2”.</div>
+      </div>
+
+      <h2>Los módulos</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Módulo</th><th>Resultado</th><th>Tiempo</th></tr></thead>
+          <tbody>
+            <tr><td>00</td><td><a href="../course/modules/00-preparacion.md">Preparar el terreno</a></td><td>Servidor, estructura y tokens.</td><td>30 min</td></tr>
+            <tr><td>01</td><td><a href="../course/modules/01-diseno.md">Sistema de diseño</a></td><td>Paleta, tipografía, componentes, hojas.</td><td>60 min</td></tr>
+            <tr><td>02</td><td><a href="../course/modules/02-datos.md">Datos y estado</a></td><td>Catálogo, store y persistencia.</td><td>75 min</td></tr>
+            <tr><td>03</td><td><a href="../course/modules/03-navegacion.md">Chrome y navegación</a></td><td>Header, barra inferior, router.</td><td>70 min</td></tr>
+            <tr><td>04</td><td><a href="../course/modules/04-catalogo.md">Catálogo y búsqueda</a></td><td>Grilla, filtros, búsqueda, favoritos.</td><td>80 min</td></tr>
+            <tr><td>05</td><td><a href="../course/modules/05-producto.md">Detalle de producto</a></td><td>Galería, color, stock, carrito.</td><td>70 min</td></tr>
+            <tr><td>06</td><td><a href="../course/modules/06-compra.md">Flujo de compra</a></td><td>Checkout, pago, envío, orden.</td><td>90 min</td></tr>
+            <tr><td>07</td><td><a href="../course/modules/07-cuenta.md">Pedidos y perfil</a></td><td>Seguimiento, ajustes, exportación.</td><td>60 min</td></tr>
+            <tr><td>08</td><td><a href="../course/modules/08-admin.md">Panel administrador</a></td><td>KPIs, gráfico, stock, CSV.</td><td>90 min</td></tr>
+            <tr><td>09</td><td><a href="../course/modules/09-api-android.md">API y Android</a></td><td>Contrato REST y port a Kotlin.</td><td>90 min</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Cómo estudiar</h2>
+      <ol class="steps">
+        <li><strong>Leé el módulo completo</strong> antes de escribir una línea de código.</li>
+        <li><strong>Escribí sin copiar.</strong> El objetivo es entender el orden, no memorizar líneas.</li>
+        <li><strong>Compará con la referencia</strong> del repo: <code>app/src/…</code> tiene la versión final.</li>
+        <li><strong>Cerrá el checklist.</strong> Todos los checks verdes antes de pasar al siguiente.</li>
+      </ol>
+
+      <h2>Qué necesitas</h2>
+      <div class="grid grid--3">
+        <div class="card card--lime">
+          <h3>Necesario</h3>
+          <ul>
+            <li>Navegador moderno.</li>
+            <li>Node 18+ (solo para el mock de API).</li>
+            <li>Editor de texto con HTML/CSS/JS.</li>
+            <li>2 GB libres de RAM.</li>
+          </ul>
+        </div>
+        <div class="card card--gold">
+          <h3>No hace falta</h3>
+          <ul>
+            <li>Framework ni bundler.</li>
+            <li>Base de datos.</li>
+            <li>Servidor de pagos.</li>
+            <li>Cuenta de nube.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Al final</h3>
+          <ul>
+            <li>App de 13 pantallas funcionando.</li>
+            <li>Panel con datos reales.</li>
+            <li>API documentada y mockeada.</li>
+            <li>Scaffolding Android.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>El camino después del curso</h2>
+      <ol class="steps">
+        <li><strong>Backend real.</strong> Base de datos, autenticación y roles.</li>
+        <li><strong>Pagos.</strong> Intención de pago en el cliente, confirmación en el webhook.</li>
+        <li><strong>Android nativo.</strong> Room, WorkManager, push y Play Store.</li>
+        <li><strong>Operación.</strong> El panel deja de ser demo: métricas reales y auditoría.</li>
+      </ol>
+
+      <footer class="docs-foot">
+        <span>MEGA TECHNOLOGY · Documentd v4</span>
+        <span><a href="./screens.html">Pantallas</a> · <a href="./api.html">API</a></span>
+      </footer>
+    </main>
+  </body>
+</html>

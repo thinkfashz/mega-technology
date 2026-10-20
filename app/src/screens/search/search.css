@@ -1,0 +1,129 @@
+/* search.css — Búsqueda */
+
+.search {
+  padding-top: 8px;
+}
+
+.search__bar {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 30px;
+  align-items: center;
+  margin: 0 var(--m-gutter);
+  padding: 0 8px 0 4px;
+  min-height: 52px;
+  border: 1px solid #2c2c2c;
+  border-radius: var(--m-r-sm);
+  background: linear-gradient(180deg, #1a1a1a, #141414);
+  transition: border-color var(--m-dur-1) var(--m-ease);
+}
+.search__bar:focus-within {
+  border-color: var(--m-lime-deep);
+  box-shadow: 0 0 0 3px rgba(200, 245, 66, 0.1);
+}
+.search__icon {
+  display: grid;
+  place-items: center;
+  color: var(--m-text-3);
+}
+.search__input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.search__input::placeholder {
+  color: var(--m-text-3);
+}
+.search__input::-webkit-search-cancel-button {
+  display: none;
+}
+.search__clear {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 99px;
+  background: #2a2a2a;
+  color: var(--m-text-2);
+}
+.search__clear[hidden] {
+  display: none;
+}
+
+.search__suggest,
+.search__results {
+  margin-top: 18px;
+  padding: 0 var(--m-gutter);
+}
+.search__block + .search__block {
+  margin-top: 22px;
+}
+.search__label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--m-text-3);
+}
+.search__reset {
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: var(--m-gold);
+}
+.search__suggest .chip-row {
+  margin-top: 9px;
+}
+
+.search__trends {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 9px;
+}
+.trend {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px;
+  border: 1px solid #232323;
+  border-radius: 12px;
+  background: #111;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-align: left;
+  transition:
+    border-color var(--m-dur-1) var(--m-ease),
+    transform var(--m-dur-1) var(--m-ease);
+}
+.trend:hover {
+  border-color: #333;
+  transform: translateY(-1px);
+}
+.trend__icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--tint) 14%, #111);
+  color: var(--tint);
+}
+
+.search__count-row {
+  margin-bottom: 10px;
+}
+.search__catalog-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--m-lime);
+}
+
+.search .product-grid {
+  padding-bottom: 8px;
+}

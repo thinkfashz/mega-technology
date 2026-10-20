@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <include domain="sharedpref" path="." />
+    <include domain="database" path="mega_tech.db" />
+    <!-- No respaldar tokens de sesión ni claves de la pasarela. -->
+    <exclude domain="sharedpref" path="mega_secure.xml" />
+</full-backup-content>
