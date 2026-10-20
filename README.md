@@ -7,6 +7,17 @@ API documentada, scaffolding Android y un curso de 10 módulos.
 Todo vive en esta carpeta. No hay build, no hay framework, no hay base de datos:
 se abre y funciona.
 
+## Vivo
+
+| Qué | Link |
+|---|---|
+| Tienda | https://mega-technology.vercel.app/app/ |
+| Panel admin | https://mega-technology.vercel.app/app/#/admin |
+| Documentación | https://mega-technology.vercel.app/Documentd/ |
+| Código | https://github.com/thinkfashz/mega-technology |
+
+Vercel despliega solo con cada push a `main` (el repo está conectado al proyecto).
+
 ## Partidas rápidas
 
 ```sh
